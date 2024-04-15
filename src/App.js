@@ -1,8 +1,22 @@
+
 import "./App.css";
 import placeAPI from "./api/placeApi";
 import dataSetAPI from "./api/dataSetApi";
 import imageAPI from "./api/imageApi";
 import { useEffect, useState } from "react";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Login from "./pages/Login";
+import RootLayout from "./layouts/RootLayout";
+// import Customers from "./pages/Customers";
+// import Settings from "./pages/Settings";
+// import Support from "./pages/Support";
+// import AddCustomer from "./pages/AddCustomer";
+
 
 function App() {
   const [places, setPlaces] = useState([]);
@@ -80,7 +94,8 @@ function App() {
   // };
 
   return (
-    <div>
+
+    <div className="App">
       <h1>Hello Adventura! This is branch.</h1>
 
       <button onClick={apiGetAll}>Select Category</button>
@@ -117,6 +132,26 @@ function App() {
 
       {/* <button onClick={apiGetSelect}>Search Keywords</button> */}
     </div>
+
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<RootLayout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="login" element={<Login />} />
+
+
+          {/* <Route path="customers" element={<Customers />} /> from simple-crm
+          <Route path="log-interaction/:id" element={<LogInteraction />} />
+          <Route path="details/:id" element={<CustomerDetails />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="support" element={<Support />} />
+          <Route path="add-customer" element={<AddCustomer />} /> */}
+        </Route>
+      </Routes>
+    </BrowserRouter>
+
   );
 }
 
