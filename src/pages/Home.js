@@ -3,11 +3,13 @@ import placeAPI from "../api/placeApi";
 import dataSetAPI from "../api/dataSetApi";
 import imageAPI from "../api/imageApi";
 import { useEffect, useState } from "react";
-import CategoryInput from "../components/CategoryInput";
+import SearchInput from "../components/SearchInput";
 
 function Home() {
   const [places, setPlaces] = useState([]);
-  const [category, setCategory] = useState("food_beverages");
+  const [category, setCategory] = useState("accommodation");
+  const [keyword, setKeyword] = useState("");
+
   // const [imageUrl, setImageUrl] = useState([]);
 
   // Getting all places from category
@@ -31,7 +33,7 @@ function Home() {
   const apiGetAll = async () => {
     try {
       const response = await dataSetAPI.get("/search", {
-        params: { dataset: category },
+        params: { dataset: category, keyword: keyword },
       });
       const newData = await Promise.all(
         response.data.data
@@ -69,6 +71,8 @@ function Home() {
 
   const handlerSetCategory = (category) => setCategory(category);
 
+  const handlerSetKeyword = (keyword) => setKeyword(keyword);
+
   console.log(places);
 
   // const params = {
@@ -89,7 +93,14 @@ function Home() {
     <div className="App">
       <h1>Hello Adventura! This is branch.</h1>
 
-      <CategoryInput onSetCategory={handlerSetCategory} category={category} />
+      <SearchInput
+        onSetCategory={handlerSetCategory}
+        category={category}
+        onSetKeyword={handlerSetKeyword}
+        keyword={keyword}
+      />
+
+      {/* <KeywordInput onSetKeyword={handlerSetKeyword} keyword={keyword} /> */}
 
       {places && (
         <ul style={{ listStyleType: "none", padding: 0 }}>
