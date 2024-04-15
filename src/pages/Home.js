@@ -1,5 +1,5 @@
 // Home.js
-import placeAPI from "../api/placeApi";
+
 import dataSetAPI from "../api/dataSetApi";
 import imageAPI from "../api/imageApi";
 import { useEffect, useState } from "react";
