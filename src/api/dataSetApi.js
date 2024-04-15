@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const BASE_URL =
-  "https://api.stb.gov.sg/content/common/v2/search?dataset=attractions";
+const BASE_URL = "https://api.stb.gov.sg/content/common/v2";
 const API_KEY = "975ivVHndGmIa8IprCIzAq1EGuGAKEqf"; //
 
 const dataSetAPI = axios.create({

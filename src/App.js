@@ -1,8 +1,4 @@
 import "./App.css";
-import placeAPI from "./api/placeApi";
-import dataSetAPI from "./api/dataSetApi";
-import imageAPI from "./api/imageApi";
-import { useEffect, useState } from "react";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 

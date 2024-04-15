@@ -3,9 +3,11 @@ import placeAPI from "../api/placeApi";
 import dataSetAPI from "../api/dataSetApi";
 import imageAPI from "../api/imageApi";
 import { useEffect, useState } from "react";
+import CategoryInput from "../components/CategoryInput";
 
 function Home() {
   const [places, setPlaces] = useState([]);
+  const [category, setCategory] = useState("food_beverages");
   // const [imageUrl, setImageUrl] = useState([]);
 
   // Getting all places from category
@@ -28,7 +30,9 @@ function Home() {
 
   const apiGetAll = async () => {
     try {
-      const response = await dataSetAPI.get();
+      const response = await dataSetAPI.get("/search", {
+        params: { dataset: category },
+      });
       const newData = await Promise.all(
         response.data.data
           .slice(0, 12)
@@ -61,7 +65,9 @@ function Home() {
 
   useEffect(() => {
     apiGetAll();
-  }, []);
+  });
+
+  const handlerSetCategory = (category) => setCategory(category);
 
   console.log(places);
 
@@ -83,7 +89,7 @@ function Home() {
     <div className="App">
       <h1>Hello Adventura! This is branch.</h1>
 
-      <button onClick={apiGetAll}>Select Category</button>
+      <CategoryInput onSetCategory={handlerSetCategory} category={category} />
 
       {places && (
         <ul style={{ listStyleType: "none", padding: 0 }}>
