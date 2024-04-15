@@ -17,11 +17,15 @@ function App() {
   const apiGetAll = async () => {
     try {
       const response = await dataSetAPI.get();
-      console.log(response.data.data);
-      setPlaces((prevState) => {
-        return response.data.data;
-      });
-      console.log(places);
+      const newData = response.data.data.map(
+        ({ name, rating, description, images }) => ({
+          name,
+          rating,
+          description,
+          images,
+        })
+      );
+      setPlaces(newData);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -57,7 +61,52 @@ function App() {
     }
   });
 
+  const getImageUrls = async (uuidArray) => {
+    const imageUrls = [];
+
+    // Iterate over the array of UUIDs
+    for (const uuid of uuidArray) {
+      try {
+        // Call getImages function for each UUID
+        const response = await getImages(uuid);
+        imageUrls.push(response.imageUrl); // Assuming getImages function sets the imageUrl state
+      } catch (error) {
+        console.error("Error fetching image data:", error);
+        // Push a default image URL or handle error as needed
+        imageUrls.push("defaultImageUrl"); // Default image URL
+      }
+    }
+
+    return imageUrls;
+  };
+
+  // Define an async function to use await
+  const processImageUrls = async () => {
+    try {
+      // Call getImageUrls function and store the result in imageUrlsArray
+      const imageUrlsArray = await getImageUrls(imagesIdArray);
+      console.log(imageUrlsArray);
+      // Do further processing with the image URLs here
+    } catch (error) {
+      console.error("Error processing image URLs:", error);
+    }
+  };
+
+  // Call the async function
+  // processImageUrls();
+
   console.log("UUID", imagesIdArray);
+
+  useEffect(() => {
+    setPlaces(
+      places.map((item, index) => ({
+        ...item,
+        uuid: imagesIdArray[index].uuid,
+      }))
+    );
+  }, []);
+
+  console.log("places", places);
 
   useEffect(() => {
     getImages("101972df569b1fe42df9379c99cd5e9f337");
@@ -103,6 +152,7 @@ function App() {
                   />
                 )}
               </div>
+              <div>{item.images[0].uuid}</div>
             </li>
           ))}
         </ul>
