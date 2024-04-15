@@ -30,8 +30,9 @@ function App() {
     try {
       const response = await dataSetAPI.get();
       const newData = await Promise.all(
-        response.data.data.map(
-          async ({ name, rating, description, images }) => {
+        response.data.data
+          .slice(0, 12)
+          .map(async ({ name, rating, description, images }) => {
             // Check if 'images' is an array and not empty
             const firstImageUuid =
               Array.isArray(images) && images.length > 0
@@ -49,8 +50,7 @@ function App() {
               description,
               imageUrl, // Replace 'firstImageUuid' with 'imageUrl'
             };
-          }
-        )
+          })
       );
 
       setPlaces(newData);
@@ -87,7 +87,7 @@ function App() {
 
       {places && (
         <ul style={{ listStyleType: "none", padding: 0 }}>
-          {places.slice(0, 10).map((item, index) => (
+          {places.slice(0, 12).map((item, index) => (
             <li
               key={index}
               style={{
