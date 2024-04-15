@@ -6,36 +6,9 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [places, setPlaces] = useState([]);
-  const [imageUrl, setImageUrl] = useState([]);
-
-  const params = {
-    searchType: "keyword",
-    searchValues: "high",
-  };
+  // const [imageUrl, setImageUrl] = useState([]);
 
   // Getting all places from category
-  const apiGetAll = async () => {
-    try {
-      const response = await dataSetAPI.get();
-      const newData = response.data.data.map(
-        ({ name, rating, description, images }) => ({
-          name,
-          rating,
-          description,
-          images,
-        })
-      );
-      setPlaces(newData);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  useEffect(() => {
-    apiGetAll();
-  }, []);
-
-  //Getting images of places
 
   const getImages = async (mediaFileUUID) => {
     try {
@@ -47,79 +20,64 @@ function App() {
         type: response.headers["content-type"],
       });
       const dataUrl = URL.createObjectURL(blob);
-      setImageUrl(dataUrl);
+      return dataUrl; // Return the dataUrl
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  const imagesIdArray = places.map((obj) => {
-    if (Array.isArray(obj.images) && obj.images.length > 0) {
-      return obj.images[0].uuid; // Extract uuid from the first object in the 'image' array
-    } else {
-      return null; // Return null if 'image' array is empty or does not exist
-    }
-  });
-
-  const getImageUrls = async (uuidArray) => {
-    const imageUrls = [];
-
-    // Iterate over the array of UUIDs
-    for (const uuid of uuidArray) {
-      try {
-        // Call getImages function for each UUID
-        const response = await getImages(uuid);
-        imageUrls.push(response.imageUrl); // Assuming getImages function sets the imageUrl state
-      } catch (error) {
-        console.error("Error fetching image data:", error);
-        // Push a default image URL or handle error as needed
-        imageUrls.push("defaultImageUrl"); // Default image URL
-      }
-    }
-
-    return imageUrls;
-  };
-
-  // Define an async function to use await
-  const processImageUrls = async () => {
+  const apiGetAll = async () => {
     try {
-      // Call getImageUrls function and store the result in imageUrlsArray
-      const imageUrlsArray = await getImageUrls(imagesIdArray);
-      console.log(imageUrlsArray);
-      // Do further processing with the image URLs here
-    } catch (error) {
-      console.error("Error processing image URLs:", error);
-    }
-  };
+      const response = await dataSetAPI.get();
+      const newData = await Promise.all(
+        response.data.data.map(
+          async ({ name, rating, description, images }) => {
+            // Check if 'images' is an array and not empty
+            const firstImageUuid =
+              Array.isArray(images) && images.length > 0
+                ? images[0].uuid
+                : null;
 
-  // Call the async function
-  // processImageUrls();
+            // Call getImages to convert UUID to image URL
+            const imageUrl = firstImageUuid
+              ? await getImages(firstImageUuid)
+              : null;
 
-  console.log("UUID", imagesIdArray);
+            return {
+              name,
+              rating,
+              description,
+              imageUrl, // Replace 'firstImageUuid' with 'imageUrl'
+            };
+          }
+        )
+      );
 
-  useEffect(() => {
-    setPlaces(
-      places.map((item, index) => ({
-        ...item,
-        uuid: imagesIdArray[index].uuid,
-      }))
-    );
-  }, []);
-
-  console.log("places", places);
-
-  useEffect(() => {
-    getImages("101972df569b1fe42df9379c99cd5e9f337");
-  }, []);
-
-  const apiGetSelect = async () => {
-    try {
-      const response = await placeAPI.get("", { params });
-      console.log(response);
+      setPlaces(newData);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+
+  useEffect(() => {
+    apiGetAll();
+  }, []);
+
+  console.log(places);
+
+  // const params = {
+  //   searchType: "keyword",
+  //   searchValues: "high",
+  // };
+
+  // const apiGetSelect = async () => {
+  //   try {
+  //     const response = await placeAPI.get("", { params });
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
 
   return (
     <div>
@@ -129,7 +87,7 @@ function App() {
 
       {places && (
         <ul style={{ listStyleType: "none", padding: 0 }}>
-          {places.slice(0, 4).map((item, index) => (
+          {places.slice(0, 10).map((item, index) => (
             <li
               key={index}
               style={{
@@ -141,24 +99,23 @@ function App() {
               }}
             >
               <div>Name: {item.name}</div>
-              <div>Description: {item.description}</div>
-              <div>Ratings: {item.rating}</div>
+              {/* <div>Description: {item.description}</div>
+              <div>Ratings: {item.rating}</div> */}
               <div>
-                {imageUrl && (
+                {item.imageUrl && (
                   <img
                     style={{ width: "300px" }}
-                    src={imageUrl}
+                    src={item.imageUrl}
                     alt="Downloaded"
                   />
                 )}
               </div>
-              <div>{item.images[0].uuid}</div>
             </li>
           ))}
         </ul>
       )}
 
-      <button onClick={apiGetSelect}>Search Keywords</button>
+      {/* <button onClick={apiGetSelect}>Search Keywords</button> */}
     </div>
   );
 }
