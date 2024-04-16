@@ -1,8 +1,7 @@
 export default function SearchInput({
   onSetCategory,
-  category,
   onSetKeyword,
-  keyword,
+  onSearchPlaces,
 }) {
   function handleSubmit(e) {
     e.preventDefault();
@@ -10,6 +9,8 @@ export default function SearchInput({
     onSetCategory(e.target.elements.category.value);
 
     onSetKeyword(e.target.elements.keyword.value);
+
+    onSearchPlaces();
   }
 
   return (
