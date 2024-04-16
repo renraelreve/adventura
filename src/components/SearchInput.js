@@ -1,16 +1,10 @@
-export default function SearchInput({
-  onSetCategory,
-  onSetKeyword,
-  onSearchPlaces,
-}) {
+export default function SearchInput({ onSetCategory, onSetKeyword }) {
   function handleSubmit(e) {
     e.preventDefault();
 
     onSetCategory(e.target.elements.category.value);
 
     onSetKeyword(e.target.elements.keyword.value);
-
-    onSearchPlaces();
   }
 
   return (

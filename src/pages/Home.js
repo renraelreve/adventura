@@ -85,7 +85,6 @@ function Home() {
       <SearchInput
         onSetCategory={handlerSetCategory}
         onSetKeyword={handlerSetKeyword}
-        onSearchPlaces={apiGetAll}
       />
 
       {places && (
