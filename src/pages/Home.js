@@ -16,7 +16,7 @@ function Home() {
       const response = await imageAPI.get(`/${mediaFileUUID}`, {
         responseType: "arraybuffer",
         params: {
-          fileType: "Small Thumbnail",
+          fileType: "",
         },
       });
       // Handle the response data here
@@ -69,14 +69,14 @@ function Home() {
     }
   };
 
-  useEffect(() => {
-    apiGetAll();
-  }, [category, keyword]);
-
   const handlerSetCategory = (category) => setCategory(category);
   const handlerSetKeyword = (keyword) => setKeyword(keyword);
 
   console.log(places);
+
+  useEffect(() => {
+    apiGetAll();
+  }, [keyword, category]);
 
   return (
     <div className="App">
