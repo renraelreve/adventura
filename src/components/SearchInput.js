@@ -1,9 +1,4 @@
-export default function SearchInput({
-  onSetCategory,
-  category,
-  onSetKeyword,
-  keyword,
-}) {
+export default function SearchInput({ onSetCategory, onSetKeyword }) {
   function handleSubmit(e) {
     e.preventDefault();
 
