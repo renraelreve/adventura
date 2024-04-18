@@ -40,21 +40,17 @@ function TopNav() {
   return (
     <nav className="topbar">
       <Card>
-
         <NavItems />
       </Card>
     </nav>
   );
 }
 
-function NavItems() {
-  const authCtx = useContext(AuthContext);
-  const { isLoggedIn, logoutHandler } = authCtx;
+function NavItems() { 
+  const { isLoggedIn, logoutHandler } = useContext(AuthContext);
       
   return (
     <>
-    {isLoggedIn && "Logged In"}
-    {!isLoggedIn && "Logged Out"}
     <ul className="top-menu">
         {navItems.map((item) => (
         <li key={item.id} className="top-menu__item">
@@ -68,7 +64,7 @@ function NavItems() {
             {item.name}
           </NavLink>}
         </li>
-    ))}<li className="top-menu__item"><button onClick={logoutHandler}>LOGOUT</button></li>
+    ))}{isLoggedIn && <li className="top-menu__item" onClick={logoutHandler}><span className="nav-item">Logout</span></li>}
     </ul></>
   );
 }

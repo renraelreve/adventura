@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
 import { AuthContext } from "../store/auth-context";
+// import { Link } from "react-router-dom";
 
 function Login() {
   const { loginHandler, isLoggedIn } = useContext(AuthContext);
@@ -20,10 +20,8 @@ function Login() {
   // function that is called when user logs in
   const handleSubmit = () => {
     // user will always login
-    // call the API to login, return some auth token 
-    console.log('login clicked');
+    // call the API to login, return some auth token
     loginHandler();
-    console.log('loginHandler Called, BUT NOT CHANGING STATE!!', isLoggedIn);
   };
 
   return (
@@ -43,15 +41,15 @@ function Login() {
             onChange={formChangeHandler}
             value={loginForm.password}
             placeholder="Password" />
-          <button type="submit" onClick={handleSubmit}>
+          <button style={{ width: 200 }} type="submit" onClick={handleSubmit}>
             Log in
           </button>
         </div>
       )}
       {isLoggedIn && (
         <>
-          <div style={{ padding: 20, }}>You are logged in!</div>
-          <Link to="/">Back to Home</Link>
+          <p>You are logged in!</p>
+          {/* <Link to="/">Back to Home</Link> */}
         </>
       )}
     </div>

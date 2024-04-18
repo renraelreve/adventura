@@ -1,7 +1,8 @@
 import { createContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext({
-  isLoggedIn: true,
+  isLoggedIn: false,
   loginHandler: () => {},
   logoutHandler: () => {},
 });
@@ -9,7 +10,9 @@ export const AuthContext = createContext({
 export function AuthContextProvider({ children }) {
   // manage auth state in context
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  
+  const navigate = useNavigate();
+  
   // when user logins
   const loginHandler = () => {
     setIsLoggedIn(true);
@@ -18,6 +21,7 @@ export function AuthContextProvider({ children }) {
   // when user logs out
   const logoutHandler = () => {
     setIsLoggedIn(false);
+    navigate(`/`);
   };
 
   const context = {

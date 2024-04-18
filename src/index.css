@@ -183,7 +183,7 @@ button:hover {
   list-style: none;
   font-size: 1.4rem;
   margin-top: 1.5rem;
-  text-align: justify; 
+  text-align: center; 
 }
 
 .top-menu__item {
@@ -214,20 +214,17 @@ button:hover {
   margin-bottom: 2rem;
 }
 
-/* .customer-table { */
 .favourite-table {
   border-collapse: collapse;
   box-shadow: var(--shadow-light);
 }
 
-/* .customer-table thead tr { */
 .favourite-table thead tr {
   background-color: var(--color-primary-dark);
   color: #fff;
   text-align: left;
 }
 
-/* .customer-table th, */
 .favourite-table th,
 td {
   padding: 20px 15px;
