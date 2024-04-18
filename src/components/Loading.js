@@ -1,4 +1,4 @@
-import { PacmanLoader } from "react-spinners";
+import { FadeLoader } from "react-spinners";
 
 function Loading() {
   return (
@@ -11,7 +11,7 @@ function Loading() {
         alignItems: "center",
       }}
     >
-      <PacmanLoader color="#5f3dc4" />
+      <FadeLoader color="#c48a3d" />
     </div>
   );
 }

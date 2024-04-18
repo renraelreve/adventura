@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, NavLink } from "react-router-dom";
 
-import { simpleCrmApi } from "../api/simpleCrmApi";
+import { favouritesApi } from "../api/favouritesApi";
 
 import Success from "../components/Success";
 import Error from "../components/Error";
@@ -26,7 +26,7 @@ function AddComment() {
 
   const loadFavourite = async (id) => {
     try {
-      const response = await simpleCrmApi.get(`/favourites/${id}`);
+      const response = await favouritesApi.get(`/favourites/${id}`);
       setFavourite(response.data);
       setError(null);
     } catch (error) {
@@ -48,7 +48,7 @@ function AddComment() {
         comment: e.target.comment.value,
         // createdAt: e.target.createdAt.value,
       };
-      await simpleCrmApi.patch(`/favourites/${id}`, newComment );
+      await favouritesApi.patch(`/favourites/${id}`, newComment );
       setSuccess(true);
       setComment(initialCommentState);
       setError(null);

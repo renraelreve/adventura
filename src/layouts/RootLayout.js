@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 
 import Header from "../components/Header";
 import TopNav from "../components/TopNav";
-// import SideNav from "../components/SideNav";
 import Card from "../components/Card";
 
 function RootLayout() {
@@ -10,14 +9,14 @@ function RootLayout() {
     <div className="container">
       <Header />
       <div className="content">
-        <TopNav />
+      <TopNav />
         </div>
-        <main className="main">
+        
+          <main className="main">
           <Card>
-            <Outlet />
+          <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}><Outlet /></span>
           </Card>
-        </main>
-      
+         </main>  
     </div>
   );
 }

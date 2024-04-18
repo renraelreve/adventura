@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { simpleCrmApi } from "../api/simpleCrmApi";
+import { favouritesApi } from "../api/favouritesApi";
 
 import FavouriteTable from "../components/FavouriteTable";
 import Loading from "../components/Loading";
@@ -21,7 +21,7 @@ function Favourites() {
   const loadFavourites = async () => {
     try {
       setIsLoading(true);
-      const response = await simpleCrmApi.get("/favourites");
+      const response = await favouritesApi.get("/favourites");
       setFavourites(response.data);
       setError(null);
     } catch (error) {
@@ -38,11 +38,11 @@ function Favourites() {
   return (
     <div>
       <h1>Favourites</h1>
-      <div style={{ marginBottom: 20 }}>
+      {/* <div style={{ marginBottom: 20 }}>
         <button onClick={() => navigate("/add-favourite")}>
           Add a favourite attraction
         </button>
-      </div>
+      </div> */}
       <FavouriteTable favourites={favourites} />
     </div>
   );

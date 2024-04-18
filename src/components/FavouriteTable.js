@@ -9,6 +9,7 @@ function FavouriteTable({ favourites }) {
           <th>Date Visited</th>
           <th>Rating</th>
           <th>Comment</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -25,7 +26,7 @@ function FavouriteTable({ favourites }) {
             <td>{favourite.comment}</td>
             <td>
               <NavLink to={`/add-comment/${favourite.id}`}>
-                📝 Add a Comment
+                📝 
               </NavLink>
             </td>
           </tr>
