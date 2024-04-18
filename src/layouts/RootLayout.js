@@ -11,12 +11,13 @@ function RootLayout() {
       <Header />
       <div className="content">
         <TopNav />
+        </div>
         <main className="main">
           <Card>
             <Outlet />
           </Card>
         </main>
-      </div>
+      
     </div>
   );
 }

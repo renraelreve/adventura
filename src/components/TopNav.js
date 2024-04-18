@@ -20,8 +20,8 @@ const navItems = [
   },
   {
     id: 4,
-    name: "Login",
-    path: "/login",
+    name: "Favourites",
+    path: "/favourites",
   },
 ];
 
