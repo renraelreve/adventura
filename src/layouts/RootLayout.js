@@ -11,15 +11,23 @@ function RootLayout() {
     <div className="container">
       <AuthContextProvider>
         <Header />
-      <div className="content">
-      <TopNav />
+        <div className="content">
+          <TopNav />
         </div>
-          <main className="main">
+        <main className="main">
           <Card>
-          <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}><Outlet /></span>
+            <span
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Outlet />
+            </span>
           </Card>
-         </main>  
-         </AuthContextProvider>
+        </main>
+      </AuthContextProvider>
     </div>
   );
 }
