@@ -2,21 +2,24 @@ import { Outlet } from "react-router-dom";
 
 import Header from "../components/Header";
 import TopNav from "../components/TopNav";
-// import SideNav from "../components/SideNav";
 import Card from "../components/Card";
+
+import { AuthContextProvider } from "../store/auth-context";
 
 function RootLayout() {
   return (
     <div className="container">
-      <Header />
+      <AuthContextProvider>
+        <Header />
       <div className="content">
-        <TopNav />
-        <main className="main">
+      <TopNav />
+        </div>
+          <main className="main">
           <Card>
-            <Outlet />
+          <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}><Outlet /></span>
           </Card>
-        </main>
-      </div>
+         </main>  
+         </AuthContextProvider>
     </div>
   );
 }

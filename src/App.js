@@ -2,18 +2,18 @@ import "./App.css";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import RootLayout from "./layouts/RootLayout";
+
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Favourites from "./pages/Favourites";
 import Login from "./pages/Login";
-import RootLayout from "./layouts/RootLayout";
-// import Customers from "./pages/Customers";
-// import Settings from "./pages/Settings";
-// import Support from "./pages/Support";
-// import AddCustomer from "./pages/AddCustomer";
+import AddComment from "./pages/AddComment";
 
 function App() {
   return (
+    <div className="App">
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<RootLayout />}>
@@ -21,7 +21,12 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
           <Route path="login" element={<Login />} />
-
+          <Route path="favourites" element={<Favourites />} /> 
+          <Route path="add-comment/:id" element={<AddComment />} /> 
+        </Route>
+      </Routes>
+    </BrowserRouter>
+    </div>
           {/* <Route path="customers" element={<Customers />} /> from simple-crm
           <Route path="log-interaction/:id" element={<LogInteraction />} />
           <Route path="details/:id" element={<CustomerDetails />} />
@@ -31,6 +36,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+
   );
 }
 
