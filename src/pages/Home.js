@@ -10,14 +10,16 @@ function Home() {
   const [category, setCategory] = useState("accommodation");
   const [keyword, setKeyword] = useState("");
 
-  // const [imageUrl, setImageUrl] = useState([]);
-
-  // Getting all places from category
-
+  // define a function to convert UUID to imageUrl
   const getImages = async (mediaFileUUID) => {
     try {
       const response = await imageAPI.get(`/${mediaFileUUID}`, {
         responseType: "arraybuffer",
+
+        params: {
+          fileType: "",
+        },
+
       });
       // Handle the response data here
       const blob = new Blob([response.data], {
@@ -30,11 +32,16 @@ function Home() {
     }
   };
 
+
+  // Getting all places from category
   const apiGetAll = async () => {
     try {
       const response = await dataSetAPI.get("/search", {
         params: { dataset: category, keyword: keyword },
       });
+
+      console.log("places", response);
+
       const newData = await Promise.all(
         response.data.data
           .slice(0, 12)
@@ -65,29 +72,16 @@ function Home() {
     }
   };
 
-  useEffect(() => {
-    apiGetAll();
-  });
 
   const handlerSetCategory = (category) => setCategory(category);
-
   const handlerSetKeyword = (keyword) => setKeyword(keyword);
 
   console.log(places);
 
-  // const params = {
-  //   searchType: "keyword",
-  //   searchValues: "high",
-  // };
 
-  // const apiGetSelect = async () => {
-  //   try {
-  //     const response = await placeAPI.get("", { params });
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   }
-  // };
+  useEffect(() => {
+    apiGetAll();
+  }, [keyword, category]);
 
   return (
     <div className="App">
@@ -95,12 +89,9 @@ function Home() {
 
       <SearchInput
         onSetCategory={handlerSetCategory}
-        category={category}
         onSetKeyword={handlerSetKeyword}
-        keyword={keyword}
       />
 
-      {/* <KeywordInput onSetKeyword={handlerSetKeyword} keyword={keyword} /> */}
 
       {places && (
         <ul style={{ listStyleType: "none", padding: 0 }}>
