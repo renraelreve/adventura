@@ -26,17 +26,17 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-    </div>
+   
           {/* <Route path="customers" element={<Customers />} /> from simple-crm
           <Route path="log-interaction/:id" element={<LogInteraction />} />
           <Route path="details/:id" element={<CustomerDetails />} />
           <Route path="settings" element={<Settings />} />
           <Route path="support" element={<Support />} />
-          <Route path="add-customer" element={<AddCustomer />} /> */}
+          <Route path="add-customer" element={<AddCustomer />} /> 
         </Route>
       </Routes>
-    </BrowserRouter>
-
+    </BrowserRouter>*/}
+ </div>
   );
 }
 
