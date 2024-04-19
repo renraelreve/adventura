@@ -161,7 +161,7 @@ function Home() {
                       <div>
                         {/* Place details */}
                         <p>
-                          <strong>{selectedPlace.name}</strong>{" "}
+                          <strong>Name: {selectedPlace.name}</strong>{" "}
                         </p>
                         <p>Description: {selectedPlace.description}</p>
                         <p>Ratings: {selectedPlace.rating}</p>
