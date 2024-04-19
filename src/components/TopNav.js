@@ -1,4 +1,7 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+
+import { AuthContext } from "../store/auth-context";
 
 import Card from "./Card";
 
@@ -23,12 +26,17 @@ const navItems = [
     name: "Login",
     path: "/login",
   },
+  {
+    id: 5,
+    name: "Favourites",
+    path: "/favourites",
+  },   
 ];
 
 const customNavLinkStyle = ({ isActive }) =>
   isActive ? "nav-item-active" : "nav-item";
 
-function TopNav() {
+function TopNav() { 
   return (
     <nav className="topbar">
       <Card>
@@ -38,17 +46,26 @@ function TopNav() {
   );
 }
 
-function NavItems() {
+function NavItems() { 
+  const { isLoggedIn, logoutHandler } = useContext(AuthContext);
+      
   return (
+    <>
     <ul className="top-menu">
-      {navItems.map((item) => (
+        {navItems.map((item) => (
         <li key={item.id} className="top-menu__item">
-          <NavLink className={customNavLinkStyle} to={item.path}>
+          
+          {/* Show Login menu item only if not logged in */}
+          {!isLoggedIn && item.id < 5 && <NavLink className={customNavLinkStyle} to={item.path}>
             {item.name}
-          </NavLink>
+          </NavLink>}
+          {/* Show Favourites and Logout menu item only if logged in */}
+          {isLoggedIn && item.id !== 4 && <NavLink className={customNavLinkStyle} to={item.path}>
+            {item.name}
+          </NavLink>}
         </li>
-      ))}
-    </ul>
+    ))}{isLoggedIn && <li className="top-menu__item" onClick={logoutHandler}><span className="nav-item">Logout</span></li>}
+    </ul></>
   );
 }
 

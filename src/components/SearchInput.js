@@ -58,3 +58,4 @@ export default function SearchInput({ onSetCategory, onSetKeyword }) {
     </form>
   );
 }
+

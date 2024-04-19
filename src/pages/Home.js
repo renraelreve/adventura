@@ -15,9 +15,11 @@ function Home() {
     try {
       const response = await imageAPI.get(`/${mediaFileUUID}`, {
         responseType: "arraybuffer",
+
         params: {
           fileType: "",
         },
+
       });
       // Handle the response data here
       const blob = new Blob([response.data], {
@@ -29,6 +31,7 @@ function Home() {
       console.error("Error fetching data:", error);
     }
   };
+
 
   // Getting all places from category
   const apiGetAll = async () => {
@@ -69,10 +72,12 @@ function Home() {
     }
   };
 
+
   const handlerSetCategory = (category) => setCategory(category);
   const handlerSetKeyword = (keyword) => setKeyword(keyword);
 
   console.log(places);
+
 
   useEffect(() => {
     apiGetAll();
@@ -80,12 +85,13 @@ function Home() {
 
   return (
     <div className="App">
-      <h1>Hello Adventura! This is branch.</h1>
+      <h1>Welcome to Adventura</h1>
 
       <SearchInput
         onSetCategory={handlerSetCategory}
         onSetKeyword={handlerSetKeyword}
       />
+
 
       {places && (
         <ul style={{ listStyleType: "none", padding: 0 }}>
