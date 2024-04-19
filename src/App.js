@@ -26,6 +26,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+
       {/* <Route path="customers" element={<Customers />} /> from simple-crm
           <Route path="log-interaction/:id" element={<LogInteraction />} />
           <Route path="details/:id" element={<CustomerDetails />} />
