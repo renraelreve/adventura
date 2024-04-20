@@ -304,13 +304,24 @@ td {
 }
 
 .about{
-  padding:0 450px 30px 450px;
+  padding:0 300px 30px 300px;
 }
 
 .title{
   padding-top: 60px;
 }
 
-.description{
-  word-spacing: 5px;
+
+.contact{
+  display: flex;
+  flex-direction: column;
+  flex-basis: 300px;
+}
+
+.form{
+  padding-top: 20px;
+}
+
+.submitButton{
+  margin-top: 30px;
 }
