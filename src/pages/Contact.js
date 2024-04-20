@@ -71,7 +71,7 @@ function ContactForm() {
           >
           </textarea>
 
-          <button type="submit">Submit</button>
+          <button class="submitButton" type="submit">Submit</button>
         </form>
       ) : (
         <p>Feedback Submitted</p>
