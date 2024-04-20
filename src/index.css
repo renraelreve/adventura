@@ -302,3 +302,15 @@ td {
   flex-direction: column;
   gap: 1rem;
 }
+
+.about{
+  padding:0 450px 30px 450px;
+}
+
+.title{
+  padding-top: 60px;
+}
+
+.description{
+  word-spacing: 5px;
+}
