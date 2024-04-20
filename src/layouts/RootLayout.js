@@ -16,7 +16,7 @@ function RootLayout() {
         </div>
           <main className="main">
           <Card>
-          <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}><Outlet /></span>
+          <span class="span"><Outlet /></span>
           </Card>
          </main>  
          </AuthContextProvider>

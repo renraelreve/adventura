@@ -325,3 +325,50 @@ td {
 .submitButton{
   margin-top: 30px;
 }
+
+.span{
+  display: flex;
+  flex-direction: column;
+  padding-left: 300px;
+  padding-right: 300px;
+}
+
+.list{
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.items{
+  position: relative;
+  width: 300px;
+  height: 300px;
+  overflow: hidden; 
+}
+.images{
+  margin-top: 10px;
+  position: relative;
+  width: 250px;
+  height: 250px;
+}
+
+.imageDialog{
+    position: relative;
+    width: 250px;
+    height: 250px;
+}
+
+.dialogPanel{
+  background-color: pink;
+  width: 700px;
+  height: 600px;
+  padding: 100px 30px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #000;
+  border-radius: 5px;
+}
