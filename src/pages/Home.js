@@ -97,11 +97,12 @@ function Home() {
               <li className="items"
                 key={index}
                 style={{
-                  border: "2px solid black",
+                  border: "2px solid #FFEBB2",
                   margin: "10px",
                   padding: "10px",
-                  backgroundColor: "pink",
+                  backgroundColor: "#F7EEDD",
                   width: "500px",
+                  borderRadius: "10px",
                 }}
               >
                 <div>{item.name}</div>

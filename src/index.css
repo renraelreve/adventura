@@ -36,9 +36,9 @@ code {
 } */
 
 :root {
-  --color-primary: #faed75;
-  --color-primary-light: #f3f0ff;
-  --color-primary-light-2: #e5dbff;
+  --color-primary: #faed75; 
+  --color-primary-light: #FEFAF6;
+  --color-primary-light-2: #DAC0A3;
   --color-primary-dark: #c48a3d;
 
   --color-grey-light-1: #faf9f9;
@@ -74,7 +74,7 @@ body {
   font-size: 1.6rem;
   line-height: 1;
   font-weight: 400;
-  color: var(--color-grey-dark-2);
+  color: var(--color-grey-dark-2); 
 
   background-image: linear-gradient(
     to right bottom,
@@ -341,14 +341,16 @@ td {
   flex-wrap: wrap;
   justify-content: center;
   overflow: hidden;
+  margin-top: 20px;
 }
 
 .items{
   position: relative;
   width: 300px;
-  height: 300px;
+  height: 320px;
   overflow: hidden; 
 }
+
 .images{
   margin-top: 10px;
   position: relative;
@@ -363,7 +365,7 @@ td {
 }
 
 .dialogPanel{
-  background-color: pink;
+  background-color: #F7DCB9;
   width: 700px;
   height: 600px;
   padding: 100px 30px;
