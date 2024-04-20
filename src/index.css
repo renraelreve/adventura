@@ -329,8 +329,10 @@ td {
 .span{
   display: flex;
   flex-direction: column;
-  padding-left: 300px;
-  padding-right: 300px;
+  padding-left: 10px;
+  padding-right: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 .list{

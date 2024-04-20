@@ -16,7 +16,7 @@ function RootLayout() {
         </div>
           <main className="main">
           <Card>
-          <span class="span"><Outlet /></span>
+          <span className="span"><Outlet /></span>
           </Card>
          </main>  
          </AuthContextProvider>

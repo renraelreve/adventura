@@ -92,12 +92,11 @@ function Home() {
 
       {places && (
         <div>
-          <ul class="list">
+          <ul className="list">
             {places.slice(0, 12).map((item, index) => (
-              <li class="items"
+              <li className="items"
                 key={index}
                 style={{
-
                   border: "2px solid black",
                   margin: "10px",
                   padding: "10px",
@@ -105,7 +104,7 @@ function Home() {
                   width: "500px",
                 }}
               >
-                <div>Name: {item.name}</div>
+                <div>{item.name}</div>
                 {/* <div>Description: {item.description}</div>
               <div>Ratings: {item.rating}</div> */}
                 <div
@@ -115,7 +114,7 @@ function Home() {
                   }}
                 >
                   {item.imageUrl && (
-                    <img class="images"
+                    <img className="images"
                       src={item.imageUrl}
                       alt="Downloaded"
                     />
@@ -126,7 +125,7 @@ function Home() {
           </ul>
           <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
             <div style={{ margin: "auto" }}>
-              <Dialog.Panel class="dialogPanel">
+              <Dialog.Panel className="dialogPanel">
                 <Dialog.Title>Details</Dialog.Title>
                 <Dialog.Description style={{ margin: "10px" }}>
                   {selectedPlace && (
@@ -134,7 +133,7 @@ function Home() {
                       <div style={{ marginRight: "20px" }}>
                         {/* Image */}
                         {selectedPlace.imageUrl && (
-                          <img class="imageDialog"
+                          <img className="imageDialog"
                             src={selectedPlace.imageUrl}
                             alt="Place"
                           />
