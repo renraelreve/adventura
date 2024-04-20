@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 import TopNav from "../components/TopNav";
 import Card from "../components/Card";
+import Footer from "../components/Footer"
 
 import { AuthContextProvider } from "../store/auth-context";
 
@@ -20,6 +21,7 @@ function RootLayout() {
           </Card>
          </main>  
          </AuthContextProvider>
+        <Footer />
     </div>
   );
 }
