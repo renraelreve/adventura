@@ -28,20 +28,20 @@ function Login() {
     <div>
       <h1>Login</h1>
       {!isLoggedIn && (
-        <div style={{ display: "flex", gap: 10 }}>
-          <input
+        <div style={{ display: "flex", gap: 2 }}>
+          <input style={{margin: 7}}
             type="text"
             name="username"
             onChange={formChangeHandler}
             value={loginForm.username}
             placeholder="User Name" />
-          <input
+          <input style={{margin: 7}}
             type="password"
             name="password"
             onChange={formChangeHandler}
             value={loginForm.password}
             placeholder="Password" />
-          <button style={{ width: 200 }} type="submit" onClick={handleSubmit}>
+          <button style={{width: 200, marginLeft: 5}} type="submit" onClick={handleSubmit}>
             Log in
           </button>
         </div>

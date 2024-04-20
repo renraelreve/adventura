@@ -51,10 +51,10 @@ export default function SearchInput({ onSetCategory, onSetKeyword }) {
           // value={keyword}
           // onChange={(e) => {
           //   onSetKeyword(e.target.value);
-          // }}
+          // }
         />
       </div>
-      <button style={{ marginTop: "10px"}}>Sumbit</button>
+      <button>Submit</button>
     </form>
   );
 }

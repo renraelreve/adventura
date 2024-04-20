@@ -126,13 +126,14 @@ a:visited {
 
 a:hover,
 a:active {
-  color: var(--color-primary);
-  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  background-color: var(--color-primary-light-2);
+  border-radius: 10px;
 }
 
 button {
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 10px;
   border: 1px solid var(--color-primary-dark);
   background-color: var(--color-primary-dark);
   color: #fff;
@@ -141,6 +142,8 @@ button {
   font-family: inherit;
   cursor: pointer;
   transition: all 0.2s ease-in;
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
 
 button:hover {
@@ -181,16 +184,17 @@ button:hover {
 
 .top-menu {
   list-style: none;
-  font-size: 1.4rem;
+  font-size: 1.7rem;
   margin-top: 1.5rem;
   text-align: center; 
+  padding-bottom: 10px;
+
 }
 
 .top-menu__item {
   margin-bottom: 2rem;
-  display: inline; 
-/* add this to turn block item into inline item */
-
+  display: inline; /* add this to turn block item into inline item */
+  padding-left: 20px;
 }
 
 .nav-item {
