@@ -1,20 +1,7 @@
 // Contact.js
-
-// function Contact() {
-//     return (
-//       <div>
-//         <h1>Contact</h1>
-//         <p>Contact us through this form</p>
-//       </div>
-//     );
-//   }
-  
-//   export default Contact;
-
 import React, { useState } from 'react';
 
 function ContactForm() {
-  // Initialize state for form fields
   const [formData, setFormData] = useState({
     fullName: '',
     lastName: '',
@@ -22,7 +9,8 @@ function ContactForm() {
     feedback: ''
   });
 
-  // Handle input change
+  const [submitted, setSubmitted] = useState(false); // State to track submission status
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -31,59 +19,69 @@ function ContactForm() {
     });
   };
 
-  // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Here you can submit the form data to your server or handle it as needed
-    console.log(formData);
+    // Simulate submission delay (you can replace this with actual submission logic)
+    setTimeout(() => {
+      setSubmitted(true);
+    });
   };
 
   return (
-    <form onSubmit={handleSubmit} class="contact">
-      <label class="form" htmlFor="fullName">Full Name:</label>
-      <input
-        type="text"
-        id="fullName"
-        name="fullName"
-        value={formData.fullName}
-        onChange={handleInputChange}
-        required
-      />
+    <div>
+      {!submitted ? (
+        <form class="form" onSubmit={handleSubmit}>
+          <label htmlFor="fullName">Full Name:</label>
+          <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            value={formData.fullName}
+            onChange={handleInputChange}
+            required
+          />
 
-      <label class="form" htmlFor="lastName">Last Name:</label>
-      <input
-        type="text"
-        id="lastName"
-        name="lastName"
-        value={formData.lastName}
-        onChange={handleInputChange}
-        required
-      />
+          <label class="form" htmlFor="lastName">Last Name:</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleInputChange}
+            required
+          />
 
-      <label class="form" htmlFor="email">Email:</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        value={formData.email}
-        onChange={handleInputChange}
-        required
-      />
+          <label class="form" htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+          />
 
-      <label class="form" htmlFor="feedback">Feedback:</label>
-      <textarea
-        id="feedback"
-        name="feedback"
-        value={formData.feedback}
-        onChange={handleInputChange}
-        required
-      ></textarea>
+          <label class="form" htmlFor="feedback">Feedback:</label>
+          <textarea
+            id="feedback"
+            name="feedback"
+            value={formData.feedback}
+            onChange={handleInputChange}
+            required
+          >
+          </textarea>
 
-      <button class="submitButton" type="submit">Submit</button>
-    </form>
+          <button type="submit">Submit</button>
+        </form>
+      ) : (
+        <p>Feedback Submitted</p>
+      )}
+    </div>
   );
 }
 
 export default ContactForm;
+
+
 
   
