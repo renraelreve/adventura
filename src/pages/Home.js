@@ -92,19 +92,20 @@ function Home() {
 
       {places && (
         <div>
-          <ul style={{ listStyleType: "none", padding: 0 }}>
+          <ul className="list">
             {places.slice(0, 12).map((item, index) => (
-              <li
+              <li className="items"
                 key={index}
                 style={{
-                  border: "2px solid black",
+                  border: "2px solid #FFEBB2",
                   margin: "10px",
                   padding: "10px",
-                  backgroundColor: "pink",
+                  backgroundColor: "#F7EEDD",
                   width: "500px",
+                  borderRadius: "10px",
                 }}
               >
-                <div>Name: {item.name}</div>
+                <div>{item.name}</div>
                 {/* <div>Description: {item.description}</div>
               <div>Ratings: {item.rating}</div> */}
                 <div
@@ -114,8 +115,7 @@ function Home() {
                   }}
                 >
                   {item.imageUrl && (
-                    <img
-                      style={{ width: "300px" }}
+                    <img className="images"
                       src={item.imageUrl}
                       alt="Downloaded"
                     />
@@ -126,20 +126,7 @@ function Home() {
           </ul>
           <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
             <div style={{ margin: "auto" }}>
-              <Dialog.Panel
-                style={{
-                  backgroundColor: "pink",
-                  width: "800px",
-                  height: "600px",
-                  margin: "auto",
-                  position: "fixed",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  border: "1px solid #000",
-                  borderRadius: "5px",
-                }}
-              >
+              <Dialog.Panel className="dialogPanel">
                 <Dialog.Title>Details</Dialog.Title>
                 <Dialog.Description style={{ margin: "10px" }}>
                   {selectedPlace && (
@@ -147,12 +134,7 @@ function Home() {
                       <div style={{ marginRight: "20px" }}>
                         {/* Image */}
                         {selectedPlace.imageUrl && (
-                          <img
-                            style={{
-                              width: "200px",
-                              height: "200px",
-                              objectFit: "cover",
-                            }}
+                          <img className="imageDialog"
                             src={selectedPlace.imageUrl}
                             alt="Place"
                           />
@@ -163,7 +145,9 @@ function Home() {
                         <p>
                           <strong>{selectedPlace.name}</strong>{" "}
                         </p>
+                        <br></br>
                         <p>Description: {selectedPlace.description}</p>
+                        <br></br>
                         <p>Ratings: {selectedPlace.rating}</p>
                       </div>
                     </div>
@@ -171,6 +155,7 @@ function Home() {
                 </Dialog.Description>
 
                 <p style={{ margin: "10px" }}>
+                  <br></br>
                   You can save this attraction to your favourites!
                 </p>
 

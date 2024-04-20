@@ -36,9 +36,9 @@ code {
 } */
 
 :root {
-  --color-primary: #faed75;
-  --color-primary-light: #f3f0ff;
-  --color-primary-light-2: #e5dbff;
+  --color-primary: #faed75; 
+  --color-primary-light: #FEFAF6;
+  --color-primary-light-2: #DAC0A3;
   --color-primary-dark: #c48a3d;
 
   --color-grey-light-1: #faf9f9;
@@ -74,7 +74,7 @@ body {
   font-size: 1.6rem;
   line-height: 1;
   font-weight: 400;
-  color: var(--color-grey-dark-2);
+  color: var(--color-grey-dark-2); 
 
   background-image: linear-gradient(
     to right bottom,
@@ -126,13 +126,14 @@ a:visited {
 
 a:hover,
 a:active {
-  color: var(--color-primary);
-  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  background-color: var(--color-primary-light-2);
+  border-radius: 10px;
 }
 
 button {
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 10px;
   border: 1px solid var(--color-primary-dark);
   background-color: var(--color-primary-dark);
   color: #fff;
@@ -141,6 +142,8 @@ button {
   font-family: inherit;
   cursor: pointer;
   transition: all 0.2s ease-in;
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
 
 button:hover {
@@ -181,16 +184,17 @@ button:hover {
 
 .top-menu {
   list-style: none;
-  font-size: 1.4rem;
+  font-size: 1.7rem;
   margin-top: 1.5rem;
   text-align: center; 
+  padding-bottom: 10px;
+
 }
 
 .top-menu__item {
   margin-bottom: 2rem;
-  display: inline; 
-/* add this to turn block item into inline item */
-
+  display: inline; /* add this to turn block item into inline item */
+  padding-left: 20px;
 }
 
 .nav-item {
@@ -324,4 +328,59 @@ td {
 
 .submitButton{
   margin-top: 30px;
+}
+
+.span{
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+  padding-right: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.list{
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.items{
+  position: relative;
+  width: 300px;
+  height: 320px;
+  overflow: hidden; 
+}
+
+.images{
+  margin-top: 10px;
+  position: relative;
+  width: 250px;
+  height: 250px;
+}
+
+.imageDialog{
+    position: relative;
+    width: 250px;
+    height: 250px;
+}
+
+.dialogPanel{
+  background-color: #F7DCB9;
+  width: 700px;
+  height: 600px;
+  padding: 100px 30px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #000;
+  border-radius: 5px;
+}
+
+.footer{
+  margin-bottom: 20px;
 }

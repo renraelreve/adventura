@@ -9,7 +9,7 @@ export default function SearchInput({ onSetCategory, onSetKeyword }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <span>Select Category</span>
+      <span>Select Category: </span>
       <select
         name="category"
         // value={category}
@@ -38,23 +38,23 @@ export default function SearchInput({ onSetCategory, onSetKeyword }) {
       </select>
 
       <div>
-        <span>Enter Keyword</span>
+        <span>Enter Keyword: </span>
         <input
           name="keyword"
           style={{
             width: "100px",
             height: "20px",
             border: "1px solid black",
-            marginTop: "10px",
+            marginTop: "15px",
             marginBottom: "10px",
           }}
           // value={keyword}
           // onChange={(e) => {
           //   onSetKeyword(e.target.value);
-          // }}
+          // }
         />
       </div>
-      <button>Sumbit</button>
+      <button>Submit</button>
     </form>
   );
 }

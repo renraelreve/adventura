@@ -30,7 +30,7 @@ function ContactForm() {
   return (
     <div>
       {!submitted ? (
-        <form class="form" onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleSubmit}>
           <label htmlFor="fullName">Full Name:</label>
           <input
             type="text"
@@ -41,7 +41,7 @@ function ContactForm() {
             required
           />
 
-          <label class="form" htmlFor="lastName">Last Name:</label>
+          <label className="form" htmlFor="lastName">Last Name:</label>
           <input
             type="text"
             id="lastName"
@@ -51,7 +51,7 @@ function ContactForm() {
             required
           />
 
-          <label class="form" htmlFor="email">Email:</label>
+          <label className="form" htmlFor="email">Email:</label>
           <input
             type="email"
             id="email"
@@ -61,7 +61,7 @@ function ContactForm() {
             required
           />
 
-          <label class="form" htmlFor="feedback">Feedback:</label>
+          <label className="form" htmlFor="feedback">Feedback:</label>
           <textarea
             id="feedback"
             name="feedback"
@@ -71,7 +71,7 @@ function ContactForm() {
           >
           </textarea>
 
-          <button class="submitButton" type="submit">Submit</button>
+          <button className="submitButton" type="submit">Submit</button>
         </form>
       ) : (
         <p>Feedback Submitted</p>
