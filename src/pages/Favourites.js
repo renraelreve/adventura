@@ -1,5 +1,8 @@
-import { useState, useEffect } from "react";
+
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { AuthContext } from "../store/auth-context";
 
 import { favouritesApi } from "../api/favouritesApi";
 
@@ -8,6 +11,7 @@ import Loading from "../components/Loading";
 import Error from "../components/Error";
 
 function Favourites() {
+  const { isLoggedIn } = useContext(AuthContext);
   const [favourites, setFavourites] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -36,15 +40,18 @@ function Favourites() {
   if (error) return <Error message={error} />;
 
   return (
-    <div>
+    // prevent directory traversal through conditional rendering
+    isLoggedIn && 
+    <><div>
       <h1>Favourites</h1>
       {/* <div style={{ marginBottom: 20 }}>
         <button onClick={() => navigate("/add-favourite")}>
           Add a favourite attraction
         </button>
       </div> */}
-      <FavouriteTable favourites={favourites} />
+       <FavouriteTable favourites={favourites} />
     </div>
+    </>
   );
 }
 
