@@ -94,7 +94,12 @@ function Home() {
         <div>
           <ul className="list">
             {places.slice(0, 12).map((item, index) => (
-              <li className="items"
+              <li
+                onClick={() => {
+                  setIsOpen(true);
+                  setSelectedPlace(item);
+                }}
+                className="items"
                 key={index}
                 style={{
                   border: "2px solid #FFEBB2",
@@ -108,14 +113,10 @@ function Home() {
                 <div>{item.name}</div>
                 {/* <div>Description: {item.description}</div>
               <div>Ratings: {item.rating}</div> */}
-                <div
-                  onClick={() => {
-                    setIsOpen(true);
-                    setSelectedPlace(item);
-                  }}
-                >
+                <div>
                   {item.imageUrl && (
-                    <img className="images"
+                    <img
+                      className="images"
                       src={item.imageUrl}
                       alt="Downloaded"
                     />
@@ -134,7 +135,8 @@ function Home() {
                       <div style={{ marginRight: "20px" }}>
                         {/* Image */}
                         {selectedPlace.imageUrl && (
-                          <img className="imageDialog"
+                          <img
+                            className="imageDialog"
                             src={selectedPlace.imageUrl}
                             alt="Place"
                           />
