@@ -46,7 +46,7 @@ export default function EditFavourite() {
     });
   };
 
-  const handleAddAddition = async (e) => {
+    const handlerAddAddition = async (e) => {
     e.preventDefault();
     try {
       setIsLoading(true);
@@ -68,7 +68,7 @@ export default function EditFavourite() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }; 
 
   return (
     // prevent directory traversal through conditional rendering
@@ -83,8 +83,8 @@ export default function EditFavourite() {
           {/* </NavLink> */}
         </p>
 
-        {success && <Success message="Favourite added successfully." />}
-        {error && <Error message={error} />}
+        { success && <Success message="Favourite added successfully." />}
+        { error && <Error message={error} />}
 
         {!isSubmitted && 
         <div style={{ marginBottom: 20 }}>
@@ -108,7 +108,7 @@ export default function EditFavourite() {
           {favourite.comment}
           </p>
 
-          <form className="comment-form" onSubmit={handleAddAddition}>
+          <form className="comment-form" onSubmit={ handlerAddAddition }>
             <p style={{ marginBottom: 20 }}>
               <label htmlFor="newcomment">New comments:</label>
               <textarea
@@ -116,10 +116,10 @@ export default function EditFavourite() {
                 name="comment"
                 type="text"
                 placeholder="Enter comments here..."
-                onChange={handleChangeAddition}
-                value={addition.comment} />
-
+                onChange={ handleChangeAddition }
+                value={ addition.comment } />
             </p>
+
             <button disabled={isLoading}>
               {isLoading ? "Loading ..." : "Submit Edit"}
             </button> 

@@ -357,20 +357,22 @@ td {
 .images {
   margin-top: 10px;
   position: relative;
-  width: 250px;
+  width: 400px;
   height: 250px;
+  object-fit: cover;
 }
 
 .imageDialog {
   position: relative;
   width: 250px;
   height: 250px;
+  object-fit: cover;
 }
 
 .dialogPanel {
   background-color: #f7dcb9;
   width: 700px;
-  height: 600px;
+  height: 800px;
   padding: 100px 30px;
   position: fixed;
   top: 50%;

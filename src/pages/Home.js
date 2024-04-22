@@ -4,14 +4,16 @@ import dataSetAPI from "../api/dataSetApi";
 import imageAPI from "../api/imageApi";
 import { useEffect, useState } from "react";
 import SearchInput from "../components/SearchInput";
-import { Dialog } from "@headlessui/react";
+// import { Dialog } from "@headlessui/react";
+import Modal from "../components/Modal";
 
 function Home() {
   const [places, setPlaces] = useState([]);
   const [category, setCategory] = useState("accommodation");
   const [keyword, setKeyword] = useState("");
   const [selectedPlace, setSelectedPlace] = useState(null);
-  let [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false); add in react-spinner like async-dog
   const [favourites, setFavourites] = useState([]);
 
   // define a function to convert UUID to imageUrl
@@ -78,7 +80,7 @@ function Home() {
 
   console.log(places);
 
-  const handlerSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const newPlace = {
@@ -90,13 +92,17 @@ function Home() {
     setFavourites(newList);
   };
 
+  const handleClose = () => {
+    setIsOpen(false);
+  }
+
   useEffect(() => {
     apiGetAll();
   }, [keyword, category]);
 
   return (
     <div className="App">
-      <h1>Hello Adventura! This is branch.</h1>
+      <h1>Welcome to Adventura!</h1>
 
       <SearchInput
         onSetCategory={handlerSetCategory}
@@ -138,94 +144,13 @@ function Home() {
               </li>
             ))}
           </ul>
-          <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-            <div>
-              <Dialog.Panel className="dialogPanel">
-                <Dialog.Title>Details</Dialog.Title>
-                <Dialog.Description style={{ margin: "10px" }}>
-                  {selectedPlace && (
-                    <div style={{ display: "flex" }}>
-                      <div style={{ marginRight: "20px" }}>
-                        {/* Image */}
-                        {selectedPlace.imageUrl && (
-                          <img
-                            className="imageDialog"
-                            src={selectedPlace.imageUrl}
-                            alt="Place"
-                          />
-                        )}
-                      </div>
-                      <div>
-                        {/* Place details */}
-                        <p>
-                          <strong>Name: {selectedPlace.name}</strong>{" "}
-                        </p>
-                        <br></br>
-                        <p>Description: {selectedPlace.description}</p>
-                        <br></br>
-                        <p>Ratings: {selectedPlace.rating}</p>
-                      </div>
-                    </div>
-                  )}
-                </Dialog.Description>
-
-                <form onSubmit={handlerSubmit}>
-                  <span>Comments: </span>
-                  <textarea
-                    name="comment"
-                    rows={2} // Set the number of visible rows
-                    cols={50} // Set the number of visible columns
-                    style={{
-                      border: "1px solid black",
-                      marginTop: "15px",
-                      marginBottom: "10px",
-                    }}
-                    // value={keyword}
-                    // onChange={(e) => {
-                    //   onSetKeyword(e.target.value);
-                    // }
-                  />
-
-                  <br />
-
-                  <span>Ratings: </span>
-                  <input
-                    name="rating"
-                    type="number"
-                    style={{
-                      width: "100px",
-                      height: "20px",
-                      border: "1px solid black",
-                      marginTop: "5px",
-                      marginBottom: "10px",
-                    }}
-                  />
-                  <br />
-
-                  {!favourites.some((place) =>
-                    place.name.includes(selectedPlace.name)
-                  ) && (
-                    <button style={{ margin: "10px" }}>
-                      Save to Favourites
-                    </button>
-                  )}
-                </form>
-                <button
-                  style={{ margin: "10px" }}
-                  onClick={() => setIsOpen(false)}
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={() => {
-                    console.log(favourites);
-                  }}
-                >
-                  check favourites
-                </button>
-              </Dialog.Panel>
-            </div>
-          </Dialog>
+          <Modal 
+            isOpen={isOpen}
+            selectedPlace={selectedPlace} 
+            favourites={favourites} 
+            handleSubmit={handleSubmit} 
+            handleClose={handleClose} />
+          {/* <Dialog /> refactored as Modal.js, original code block below */}
         </div>
       )}
 
@@ -234,4 +159,95 @@ function Home() {
   );
 }
 
+// <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+//             <div>
+//               <Dialog.Panel className="dialogPanel">
+//                 <Dialog.Title>Details</Dialog.Title>
+//                 <Dialog.Description style={{ margin: "10px" }}>
+//                   {selectedPlace && (
+//                     <div style={{ display: "flex" }}>
+//                       <div style={{ marginRight: "20px" }}>
+//                         {/* Image */}
+//                         {selectedPlace.imageUrl && (
+//                           <img
+//                             className="imageDialog"
+//                             src={selectedPlace.imageUrl}
+//                             alt="Place"
+//                           />
+//                         )}
+//                       </div>
+//                       <div>
+//                         {/* Place details */}
+//                         <p>
+//                           <strong>Name: {selectedPlace.name}</strong>{" "}
+//                         </p>
+//                         <br></br>
+//                         <p>Description: {selectedPlace.description}</p>
+//                         <br></br>
+//                         <p>Ratings: {selectedPlace.rating}</p>
+//                       </div>
+//                     </div>
+//                   )}
+//                 </Dialog.Description>
+
+//                 <form onSubmit={handlerSubmit}>
+//                   <span>Comments: </span>
+//                   <textarea
+//                     name="comment"
+//                     rows={2} // Set the number of visible rows
+//                     cols={50} // Set the number of visible columns
+//                     style={{
+//                       border: "1px solid black",
+//                       marginTop: "15px",
+//                       marginBottom: "10px",
+//                     }}
+//                     // value={keyword}
+//                     // onChange={(e) => {
+//                     //   onSetKeyword(e.target.value);
+//                     // }
+//                   />
+
+//                   <br />
+
+//                   <span>Ratings: </span>
+//                   <input
+//                     name="rating"
+//                     type="number"
+//                     style={{
+//                       width: "100px",
+//                       height: "20px",
+//                       border: "1px solid black",
+//                       marginTop: "5px",
+//                       marginBottom: "10px",
+//                     }}
+//                   />
+//                   <br />
+
+//                   {!favourites.some((place) =>
+//                     place.name.includes(selectedPlace.name)
+//                   ) && (
+//                     <button style={{ margin: "10px" }}>
+//                       Save to Favourites
+//                     </button>
+//                   )}
+//                 </form>
+//                 <button
+//                   style={{ margin: "10px" }}
+//                   onClick={() => setIsOpen(false)}
+//                 >
+//                   Cancel
+//                 </button>
+//                 <button
+//                   onClick={() => {
+//                     console.log(favourites);
+//                   }}
+//                 >
+//                   check favourites
+//                 </button>
+//               </Dialog.Panel>
+//             </div>
+//           </Dialog>
+
 export default Home;
+
+
