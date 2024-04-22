@@ -30,13 +30,13 @@ const navItems = [
     id: 5,
     name: "Favourites",
     path: "/favourites",
-  },   
+  },
 ];
 
 const customNavLinkStyle = ({ isActive }) =>
   isActive ? "nav-item-active" : "nav-item";
 
-function TopNav() { 
+function TopNav() {
   return (
     <nav className="topbar">
       <Card>
@@ -46,26 +46,35 @@ function TopNav() {
   );
 }
 
-function NavItems() { 
+function NavItems() {
   const { isLoggedIn, logoutHandler } = useContext(AuthContext);
-      
+
   return (
     <>
-    <ul className="top-menu">
+      <ul className="top-menu">
         {navItems.map((item) => (
-        <li key={item.id} className="top-menu__item">
-          
-          {/* Show Login menu item only if not logged in */}
-          {!isLoggedIn && item.id < 5 && <NavLink className={customNavLinkStyle} to={item.path}>
-            {item.name}
-          </NavLink>}
-          {/* Show Favourites and Logout menu item only if logged in */}
-          {isLoggedIn && item.id !== 4 && <NavLink className={customNavLinkStyle} to={item.path}>
-            {item.name}
-          </NavLink>}
-        </li>
-    ))}{isLoggedIn && <li className="top-menu__item" onClick={logoutHandler}><span className="nav-item">Logout</span></li>}
-    </ul></>
+          <li key={item.id} className="top-menu__item">
+            {/* Show Login menu item only if not logged in */}
+            {!isLoggedIn && item.id < 5 && (
+              <NavLink className={customNavLinkStyle} to={item.path}>
+                {item.name}
+              </NavLink>
+            )}
+            {/* Show Favourites and Logout menu item only if logged in */}
+            {isLoggedIn && item.id !== 4 && (
+              <NavLink className={customNavLinkStyle} to={item.path}>
+                {item.name}
+              </NavLink>
+            )}
+          </li>
+        ))}
+        {isLoggedIn && (
+          <li className="top-menu__item" onClick={logoutHandler}>
+            <span className="nav-item">Logout</span>
+          </li>
+        )}
+      </ul>
+    </>
   );
 }
 

@@ -12,6 +12,7 @@ function Home() {
   const [keyword, setKeyword] = useState("");
   const [selectedPlace, setSelectedPlace] = useState(null);
   let [isOpen, setIsOpen] = useState(false);
+  const [favourites, setFavourites] = useState([]);
 
   // define a function to convert UUID to imageUrl
   const getImages = async (mediaFileUUID) => {
@@ -77,6 +78,18 @@ function Home() {
 
   console.log(places);
 
+  const handlerSubmit = (e) => {
+    e.preventDefault();
+
+    const newPlace = {
+      name: selectedPlace.name,
+      comment: e.target.elements.comment.value,
+      rating: e.target.elements.rating.value,
+    };
+    const newList = [...favourites, newPlace];
+    setFavourites(newList);
+  };
+
   useEffect(() => {
     apiGetAll();
   }, [keyword, category]);
@@ -92,30 +105,31 @@ function Home() {
 
       {places && (
         <div>
-          <ul style={{ listStyleType: "none", padding: 0 }}>
+          <ul className="list">
             {places.slice(0, 12).map((item, index) => (
               <li
+                onClick={() => {
+                  setIsOpen(true);
+                  setSelectedPlace(item);
+                }}
+                className="items"
                 key={index}
                 style={{
-                  border: "2px solid black",
+                  border: "2px solid #FFEBB2",
                   margin: "10px",
                   padding: "10px",
-                  backgroundColor: "pink",
+                  backgroundColor: "#F7EEDD",
                   width: "500px",
+                  borderRadius: "10px",
                 }}
               >
-                <div>Name: {item.name}</div>
+                <div>{item.name}</div>
                 {/* <div>Description: {item.description}</div>
               <div>Ratings: {item.rating}</div> */}
-                <div
-                  onClick={() => {
-                    setIsOpen(true);
-                    setSelectedPlace(item);
-                  }}
-                >
+                <div>
                   {item.imageUrl && (
                     <img
-                      style={{ width: "300px" }}
+                      className="images"
                       src={item.imageUrl}
                       alt="Downloaded"
                     />
@@ -125,21 +139,8 @@ function Home() {
             ))}
           </ul>
           <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-            <div style={{ margin: "auto" }}>
-              <Dialog.Panel
-                style={{
-                  backgroundColor: "pink",
-                  width: "800px",
-                  height: "600px",
-                  margin: "auto",
-                  position: "fixed",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  border: "1px solid #000",
-                  borderRadius: "5px",
-                }}
-              >
+            <div>
+              <Dialog.Panel className="dialogPanel">
                 <Dialog.Title>Details</Dialog.Title>
                 <Dialog.Description style={{ margin: "10px" }}>
                   {selectedPlace && (
@@ -148,11 +149,7 @@ function Home() {
                         {/* Image */}
                         {selectedPlace.imageUrl && (
                           <img
-                            style={{
-                              width: "200px",
-                              height: "200px",
-                              objectFit: "cover",
-                            }}
+                            className="imageDialog"
                             src={selectedPlace.imageUrl}
                             alt="Place"
                           />
@@ -161,29 +158,70 @@ function Home() {
                       <div>
                         {/* Place details */}
                         <p>
-                          <strong>{selectedPlace.name}</strong>{" "}
+                          <strong>Name: {selectedPlace.name}</strong>{" "}
                         </p>
+                        <br></br>
                         <p>Description: {selectedPlace.description}</p>
+                        <br></br>
                         <p>Ratings: {selectedPlace.rating}</p>
                       </div>
                     </div>
                   )}
                 </Dialog.Description>
 
-                <p style={{ margin: "10px" }}>
-                  You can save this attraction to your favourites!
-                </p>
+                <form onSubmit={handlerSubmit}>
+                  <span>Comments: </span>
+                  <textarea
+                    name="comment"
+                    rows={2} // Set the number of visible rows
+                    cols={50} // Set the number of visible columns
+                    style={{
+                      border: "1px solid black",
+                      marginTop: "15px",
+                      marginBottom: "10px",
+                    }}
+                    // value={keyword}
+                    // onChange={(e) => {
+                    //   onSetKeyword(e.target.value);
+                    // }
+                  />
 
-                {/*
-       You can render additional buttons to dismiss your dialog by setting
-       `isOpen` to `false`.
-     */}
-                <button style={{ margin: "10px" }}>Save to Favourites</button>
+                  <br />
+
+                  <span>Ratings: </span>
+                  <input
+                    name="rating"
+                    type="number"
+                    style={{
+                      width: "100px",
+                      height: "20px",
+                      border: "1px solid black",
+                      marginTop: "5px",
+                      marginBottom: "10px",
+                    }}
+                  />
+                  <br />
+
+                  {!favourites.some((place) =>
+                    place.name.includes(selectedPlace.name)
+                  ) && (
+                    <button style={{ margin: "10px" }}>
+                      Save to Favourites
+                    </button>
+                  )}
+                </form>
                 <button
                   style={{ margin: "10px" }}
                   onClick={() => setIsOpen(false)}
                 >
                   Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    console.log(favourites);
+                  }}
+                >
+                  check favourites
                 </button>
               </Dialog.Panel>
             </div>
