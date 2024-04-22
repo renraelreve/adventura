@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 
-export default function BasicRating( {rating } ) {
-  const [value, setValue] = useState(2);
-
+export default function DisplayRating( { value } ) {
+  // const [value, setValue] = useState(2);
+  
   return (
     <Box
       sx={{
@@ -16,12 +15,12 @@ export default function BasicRating( {rating } ) {
       <Rating
         name="simple-controlled"
         value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-      /> */}
-      {/* <Typography component="legend">Read only</Typography> */}
-      <Rating name="read-only" value={rating} readOnly />
+        onChange={(event, value) => 
+          onChangeHandler
+        }
+      />
+      <Typography component="legend">Read only</Typography> */}
+      <Rating name="read-only" value={value ?? null} readOnly />
       {/* <Typography component="legend">Disabled</Typography>
       <Rating name="disabled" value={value} disabled />
       <Typography component="legend">No rating given</Typography>

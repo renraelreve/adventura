@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import TopNav from "../components/TopNav";
 import Card from "../components/Card";
 
-import { AuthContextProvider } from "../store/auth-context";
+import { AuthContextProvider } from "../store/AuthContext";
 
 function RootLayout() {
   return (

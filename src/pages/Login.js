@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
-import { AuthContext } from "../store/auth-context";
+import { AuthContext } from "../store/AuthContext";
+import Success from "../components/Success";
 // import { Link } from "react-router-dom";
 
 function Login() {
@@ -48,7 +49,7 @@ function Login() {
       )}
       {isLoggedIn && (
         <>
-          <p>You are logged in!</p>
+          <Success message="You are logged in!" />
           {/* <Link to="/">Back to Home</Link> */}
         </>
       )}

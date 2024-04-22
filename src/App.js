@@ -9,7 +9,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Favourites from "./pages/Favourites";
 import Login from "./pages/Login";
-import AddComment from "./pages/AddComment";
+import EditFavourite from "./pages/EditFavourite";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
             <Route path="contact" element={<Contact />} />
             <Route path="login" element={<Login />} />
             <Route path="favourites" element={<Favourites />} />
-            <Route path="add-comment/:id" element={<AddComment />} />
+            <Route path="edit-favourite/:id" element={<EditFavourite />} />
           </Route>
         </Routes>
       </BrowserRouter>
