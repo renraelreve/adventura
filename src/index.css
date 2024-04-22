@@ -175,11 +175,12 @@ button:hover {
 }
 
 .topbar {
-  flex: 0 0 99%;
+  flex: 0 0 100%;
   /* increase width of top bar from 200*/
   margin-top: 2rem;
-  margin-left: 1rem;
-  text-transform: uppercase;
+
+  /* margin-left: 1rem; */
+  text-transform: uppercase; 
 }
 
 .top-menu {

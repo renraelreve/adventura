@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import DisplayRating from "./DisplayRating";
 
 function FavouriteTable({ favourites }) {
   return (
@@ -6,7 +7,6 @@ function FavouriteTable({ favourites }) {
       <thead>
         <tr>
           <th>Name</th>
-          <th>Date Visited</th>
           <th>Rating</th>
           <th>Comment</th>
           <th></th>
@@ -20,12 +20,11 @@ function FavouriteTable({ favourites }) {
                 {favourite.name}
               </NavLink>
             </td>
-
-            <td>{favourite.createdAt}</td>
-            <td>{favourite.rating}</td>
+            {/* <td>{favourite.rating}</td> */}
+            <td><DisplayRating value={favourite.rating}/></td>
             <td>{favourite.comment}</td>
             <td>
-              <NavLink to={`/add-comment/${favourite.id}`}>
+              <NavLink to={`/edit-favourite/${favourite.id}`}>
                 📝 
               </NavLink>
             </td>

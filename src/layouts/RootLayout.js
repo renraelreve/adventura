@@ -5,7 +5,7 @@ import TopNav from "../components/TopNav";
 import Card from "../components/Card";
 import Footer from "../components/Footer";
 
-import { AuthContextProvider } from "../store/auth-context";
+import { AuthContextProvider } from "../store/AuthContext";
 
 function RootLayout() {
   return (
