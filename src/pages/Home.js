@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import SearchInput from "../components/SearchInput";
 // import { Dialog } from "@headlessui/react";
 import Modal from "../components/Modal";
+import { useCallback } from "react";
+import adventura from "../assets/adventura-logo.jpeg";
 
 function Home() {
   const [places, setPlaces] = useState([]);
@@ -37,7 +39,7 @@ function Home() {
   };
 
   // Getting all places from category
-  const apiGetAll = async () => {
+  const apiGetAll = useCallback(async () => {
     try {
       const response = await dataSetAPI.get("/search", {
         params: { dataset: category, keyword: keyword },
@@ -73,7 +75,7 @@ function Home() {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  };
+  }, [keyword, category]);
 
   const handlerSetCategory = (category) => setCategory(category);
   const handlerSetKeyword = (keyword) => setKeyword(keyword);
@@ -94,11 +96,17 @@ function Home() {
 
   const handleClose = () => {
     setIsOpen(false);
-  }
+  };
 
   useEffect(() => {
     apiGetAll();
-  }, [keyword, category]);
+  }, [apiGetAll]);
+
+  // useEffect(() => {
+  //   if (isMounted) {
+  //     apiGetAll();
+  //   }
+  // }, []);
 
   return (
     <div className="App">
@@ -140,16 +148,21 @@ function Home() {
                       alt="Downloaded"
                     />
                   )}
+
+                  {!item.imageUrl && (
+                    <img className="images" src={adventura} alt="Adventura" />
+                  )}
                 </div>
               </li>
             ))}
           </ul>
-          <Modal 
+          <Modal
             isOpen={isOpen}
-            selectedPlace={selectedPlace} 
-            favourites={favourites} 
-            handleSubmit={handleSubmit} 
-            handleClose={handleClose} />
+            selectedPlace={selectedPlace}
+            favourites={favourites}
+            handleSubmit={handleSubmit}
+            handleClose={handleClose}
+          />
           {/* <Dialog /> refactored as Modal.js, original code block below */}
         </div>
       )}
@@ -249,5 +262,3 @@ function Home() {
 //           </Dialog>
 
 export default Home;
-
-
