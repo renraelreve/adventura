@@ -2,12 +2,13 @@
 
 import dataSetAPI from "../api/dataSetApi";
 import imageAPI from "../api/imageApi";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import SearchInput from "../components/SearchInput";
 import Modal from "../components/Modal";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
+import adventura from "../assets/adventura-logo.jpeg";
 
 function Home() {
   const [places, setPlaces] = useState([]);
@@ -41,12 +42,12 @@ function Home() {
     }
   };
 
-  useEffect(() => {
-    apiGetAll();
-  }, [keyword, category]);
+//   useEffect(() => {
+//     apiGetAll();
+//   }, [keyword, category]);
 
   // Getting all places from category
-  const apiGetAll = async () => {
+  const apiGetAll = useCallback(async () => {
     try {
 
       setIsLoading(true);
@@ -91,7 +92,7 @@ function Home() {
       setIsLoading(false);
       console.log('this is places within apiGetAll()', places);  
     }
-  };
+  }, [keyword, category]);
 
 
   if (isLoading) return <Loading />;
@@ -116,7 +117,17 @@ function Home() {
 
   const handleClose = () => {
     setIsOpen(false);
-  }
+  };
+
+  useEffect(() => {
+    apiGetAll();
+  }, [apiGetAll]);
+
+  // useEffect(() => {
+  //   if (isMounted) {
+  //     apiGetAll();
+  //   }
+  // }, []);
 
   return (
     <div className="App">
@@ -158,16 +169,23 @@ function Home() {
                       alt="Downloaded"
                     />
                   )}
+
+                  {!item.imageUrl && (
+                    <img className="images" src={adventura} alt="Adventura" />
+                  )}
                 </div>
               </li>
             ))}
           </ul>
+
           {console.log('this is selectedPlace passed to Modal',selectedPlace)}
           <Modal 
             isOpen={isOpen}
             selectedPlace={selectedPlace} 
             favourites={favourites} 
+//             handleSubmit={handleSubmit}
             handleClose={handleClose} />
+
           {/* <Dialog /> refactored as Modal.js, original code block below */}
         </div>
       )}
@@ -267,5 +285,3 @@ function Home() {
 //           </Dialog>
 
 export default Home;
-
-
