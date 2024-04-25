@@ -16,35 +16,42 @@ export default function Modal({
   isOpen,
   selectedPlace,
   favourites,
-  handleSubmit,
-  handleClose,
+  onHandleSubmit,
+  onHandleClose,
 }) {
   const { isLoggedIn } = useContext(AuthContext);
-  const [newFavourite, setNewFavourite] = useState(initialFavouriteState);
+  // const [newFavourite, setNewFavourite] = useState(initialFavouriteState);
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleFavouriteChange = (e) => {
-    setNewFavourite((favourite) => {
-      return {
-        ...favourite,
-        name: selectedPlace.name,
-        [e.target.name]: e.target.value,
-      };
-    });
-  };
-
-  const handleAddFavourite = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
+    const newPlace = {
+      name: selectedPlace.name,
+      comment: e.target.elements.comment.value,
+      rating: e.target.elements.rating.value,
+    };
+
+    // Pass the newPlace object to the onHandleSubmit function
+    onHandleSubmit(newPlace);
+
     try {
       setIsLoading(true);
-      console.log("this is being post", newFavourite);
-      await favouritesApi.post(`/favourites`, newFavourite);
+      // setNewFavourite((favourite) => {
+      //   return {
+      //     ...favourite,
+      //     name: selectedPlace.name,
+      //     [e.target.name]: e.target.value,
+      //   };
+      // });
+
+      console.log("this is being post", newPlace);
+      await favouritesApi.post(`/favourites`, newPlace);
       setSuccess(true);
       setError(null);
-      setNewFavourite(initialFavouriteState);
+      // setNewFavourite(initialFavouriteState);
       setIsSubmitted(true);
     } catch (error) {
       setSuccess(false);
@@ -54,11 +61,13 @@ export default function Modal({
     } finally {
       setIsLoading(false);
     }
-  };
+  }
+
+  const handleFavouriteChange = async (e) => {};
 
   return (
     <>
-      <Dialog open={isOpen} onClose={() => handleClose()}>
+      <Dialog open={isOpen} onClose={() => onHandleClose()}>
         <div>
           <Dialog.Panel className="dialogPanel">
             <Dialog.Title>Details</Dialog.Title>
@@ -97,8 +106,9 @@ export default function Modal({
             </Dialog.Description>
             {isLoggedIn && (
               <div>
-                {/* {!favourites.some((place) => place.name.includes(selectedPlace.name)) &&  (                 */}
-                {!isSubmitted && (
+                {!favourites.some((place) =>
+                  place.name.includes(selectedPlace.name)
+                ) && (
                   <form onSubmit={handleSubmit}>
                     <p>
                       Comments:
@@ -111,8 +121,8 @@ export default function Modal({
                           marginTop: "15px",
                           marginBottom: "10px",
                         }}
-                        onChange={handleFavouriteChange}
-                        value={newFavourite.comment}
+                        // onChange={handleFavouriteChange}
+                        // value={newFavourite.comment}
                       />
                     </p>
 
@@ -120,26 +130,23 @@ export default function Modal({
                       My Rating:
                       <Rating
                         name="rating"
-                        value={newFavourite.rating}
-                        onChange={handleFavouriteChange}
+                        // value={newFavourite.rating}
+                        // onChange={handleFavouriteChange}
                       />
                     </p>
 
-                    <button
-                      style={{ margin: "10px" }}
-                      onClick={handleAddFavourite}
-                    >
+                    <button style={{ margin: "10px" }}>
                       Save to Favourites
                     </button>
                   </form>
                 )}
               </div>
             )}
-            {success && <Success />}
+            {/* {success && <Success />} */}
             <button
               style={{ margin: "10px" }}
               onClick={() => {
-                handleClose();
+                onHandleClose();
                 setIsSubmitted(false);
                 setSuccess(false);
               }}

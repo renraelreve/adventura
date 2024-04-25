@@ -8,6 +8,7 @@ import SearchInput from "../components/SearchInput";
 import Modal from "../components/Modal";
 import { useCallback } from "react";
 import adventura from "../assets/adventura-logo.jpeg";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 function Home() {
   const [places, setPlaces] = useState([]);
@@ -16,7 +17,8 @@ function Home() {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   // const [isLoading, setIsLoading] = useState(false); add in react-spinner like async-dog
-  const [favourites, setFavourites] = useState([]);
+
+  const [favourites, setFavourites] = useLocalStorage("favourites", []);
 
   // define a function to convert UUID to imageUrl
   const getImages = async (mediaFileUUID) => {
@@ -82,14 +84,7 @@ function Home() {
 
   console.log(places);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const newPlace = {
-      name: selectedPlace.name,
-      comment: e.target.elements.comment.value,
-      rating: e.target.elements.rating.value,
-    };
+  const handleSubmit = (newPlace) => {
     const newList = [...favourites, newPlace];
     setFavourites(newList);
   };
@@ -97,6 +92,19 @@ function Home() {
   const handleClose = () => {
     setIsOpen(false);
   };
+
+  // // Load favourites from local storage when the component mounts
+  // useEffect(() => {
+  //   const storedFavourites = localStorage.getItem("favourites");
+  //   if (storedFavourites) {
+  //     setFavourites(JSON.parse(storedFavourites));
+  //   }
+  // }, []);
+
+  // Save favourites to local storage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("favourites", JSON.stringify(favourites));
+  }, [favourites]);
 
   useEffect(() => {
     apiGetAll();
@@ -156,13 +164,15 @@ function Home() {
               </li>
             ))}
           </ul>
-          <Modal
-            isOpen={isOpen}
-            selectedPlace={selectedPlace}
-            favourites={favourites}
-            handleSubmit={handleSubmit}
-            handleClose={handleClose}
-          />
+          {selectedPlace && (
+            <Modal
+              isOpen={isOpen}
+              selectedPlace={selectedPlace}
+              favourites={favourites}
+              onHandleSubmit={handleSubmit}
+              onHandleClose={handleClose}
+            />
+          )}
           {/* <Dialog /> refactored as Modal.js, original code block below */}
         </div>
       )}
