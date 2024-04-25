@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../store/AuthContext";
 import Success from "../components/Success";
+import LocaliseFavourites from "../components/LocaliseFavourites";
 // import { Link } from "react-router-dom";
 
 function Login() {
@@ -29,7 +30,7 @@ function Login() {
     <div>
       <h1>Login</h1>
       {!isLoggedIn && (
-        <div style={{ display: "flex", gap: 2 }}>
+        <div style={{ display: "block", gap: 2 }}>
           <input style={{margin: 7}}
             type="text"
             name="username"
@@ -49,7 +50,13 @@ function Login() {
       )}
       {isLoggedIn && (
         <>
-          <Success message="You are logged in!" />
+          <Success message = {
+          <span>You are logged in!<br/><br/><br/>
+          You can now <br/><br/><br/> 
+          Track your Favourites<br/><br />
+          Add your own rating<br/><br />
+          Manage own comments</span>} />
+          <LocaliseFavourites />
           {/* <Link to="/">Back to Home</Link> */}
         </>
       )}

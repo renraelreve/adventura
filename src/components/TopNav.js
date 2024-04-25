@@ -7,6 +7,11 @@ import Card from "./Card";
 
 const navItems = [
   {
+    id: 0,
+    name: "Help",
+    path: "/help",
+  },
+  {
     id: 1,
     name: "Home",
     path: "/",
@@ -31,6 +36,7 @@ const navItems = [
     name: "Favourites",
     path: "/favourites",
   },
+
 ];
 
 const customNavLinkStyle = ({ isActive }) =>

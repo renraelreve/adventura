@@ -6,6 +6,7 @@ import Card from "../components/Card";
 import Footer from "../components/Footer";
 
 import { AuthContextProvider } from "../store/AuthContext";
+import { FavouritesContextProvider } from "../store/FavouritesContext";
 
 function RootLayout() {
   return (
@@ -15,13 +16,15 @@ function RootLayout() {
         <div className="content">
           <TopNav />
         </div>
-        <main className="main">
-          <Card>
-            <span className="span">
-              <Outlet />
-            </span>
-          </Card>
-        </main>
+        <FavouritesContextProvider>
+          <main className="main">
+            <Card>
+              <span className="span">
+                <Outlet />
+              </span>
+            </Card>
+          </main>
+        </FavouritesContextProvider>
       </AuthContextProvider>
       <Footer />
     </div>
