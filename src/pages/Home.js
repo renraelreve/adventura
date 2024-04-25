@@ -42,9 +42,20 @@ function Home() {
     }
   };
 
-//   useEffect(() => {
+  useEffect(() => {
+    apiGetAll();
+  }, [keyword, category]);
+
+// useEffect(() => {
+//   apiGetAll();
+// }, [apiGetAll]);
+
+// useEffect(() => {
+//   if (isMounted) {
 //     apiGetAll();
-//   }, [keyword, category]);
+//   }
+// }, []);
+
 
   // Getting all places from category
   const apiGetAll = useCallback(async () => {
@@ -118,16 +129,6 @@ function Home() {
   const handleClose = () => {
     setIsOpen(false);
   };
-
-  useEffect(() => {
-    apiGetAll();
-  }, [apiGetAll]);
-
-  // useEffect(() => {
-  //   if (isMounted) {
-  //     apiGetAll();
-  //   }
-  // }, []);
 
   return (
     <div className="App">

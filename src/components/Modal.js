@@ -37,7 +37,7 @@ export default function Modal( { isOpen, selectedPlace, handleClose } ) {
     };
     const newList = [...favouritesctx.favourites, newPlace];
     favouritesctx.setFavourites(newList);
-  };
+    };
 
     const handleFavouriteChange = (e) => {
         setNewFavourite((favourite) => {
@@ -45,7 +45,7 @@ export default function Modal( { isOpen, selectedPlace, handleClose } ) {
             name: selectedPlace.name,
             [e.target.name]: e.target.value };
         });
-      };
+    };
     
     const handleAddFavourite = async (e) => {
         e.preventDefault();
@@ -65,29 +65,7 @@ export default function Modal( { isOpen, selectedPlace, handleClose } ) {
         } finally {
           setError(null);
         }
-      };
-    });
-  };
-
-  const handleAddFavourite = async (e) => {
-    e.preventDefault();
-    try {
-      setIsLoading(true);
-      console.log("this is being post", newFavourite);
-      await favouritesApi.post(`/favourites`, newFavourite);
-      setSuccess(true);
-      setError(null);
-      setNewFavourite(initialFavouriteState);
-      setIsSubmitted(true);
-    } catch (error) {
-      setSuccess(false);
-      console.log(error.response);
-      if (error.response.status === 400) setError(error.response.data.message);
-      else setError(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    };
 
   return (
     <>
