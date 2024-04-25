@@ -3,18 +3,23 @@
 import dataSetAPI from "../api/dataSetApi";
 import imageAPI from "../api/imageApi";
 import { useEffect, useState } from "react";
+
 import SearchInput from "../components/SearchInput";
-// import { Dialog } from "@headlessui/react";
 import Modal from "../components/Modal";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 function Home() {
   const [places, setPlaces] = useState([]);
   const [category, setCategory] = useState("accommodation");
   const [keyword, setKeyword] = useState("");
-  const [selectedPlace, setSelectedPlace] = useState(null);
+  const [selectedPlace, setSelectedPlace] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   // const [isLoading, setIsLoading] = useState(false); add in react-spinner like async-dog
   const [favourites, setFavourites] = useState([]);
+  
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   // define a function to convert UUID to imageUrl
   const getImages = async (mediaFileUUID) => {
@@ -36,14 +41,21 @@ function Home() {
     }
   };
 
+  useEffect(() => {
+    apiGetAll();
+  }, [keyword, category]);
+
   // Getting all places from category
   const apiGetAll = async () => {
     try {
+
+      setIsLoading(true);
+
       const response = await dataSetAPI.get("/search", {
         params: { dataset: category, keyword: keyword },
       });
 
-      console.log("places", response);
+      console.log("this is response within apiGetAll", response);
 
       const newData = await Promise.all(
         response.data.data
@@ -66,39 +78,45 @@ function Home() {
               description,
               imageUrl, // Replace 'firstImageUuid' with 'imageUrl'
             };
-          })
+          }
+        )
       );
 
       setPlaces(newData);
     } catch (error) {
       console.error("Error fetching data:", error);
+    } 
+    
+    finally {
+      setIsLoading(false);
+      console.log('this is places within apiGetAll()', places);  
     }
   };
+
+
+  if (isLoading) return <Loading />;
+  if (error) return <Error message={error} />;
 
   const handlerSetCategory = (category) => setCategory(category);
   const handlerSetKeyword = (keyword) => setKeyword(keyword);
 
-  console.log(places);
+  console.log('this is places within Home.js', places);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
 
-    const newPlace = {
-      name: selectedPlace.name,
-      comment: e.target.elements.comment.value,
-      rating: e.target.elements.rating.value,
-    };
-    const newList = [...favourites, newPlace];
-    setFavourites(newList);
-  };
+  //   const newPlace = {
+  //     name: selectedPlace.name,
+  //     comment: e.target.elements.comment.value,
+  //     rating: e.target.elements.rating.value,
+  //   };
+  //   const newList = [...favourites, newPlace];
+  //   setFavourites(newList);
+  // };
 
   const handleClose = () => {
     setIsOpen(false);
   }
-
-  useEffect(() => {
-    apiGetAll();
-  }, [keyword, category]);
 
   return (
     <div className="App">
@@ -144,11 +162,11 @@ function Home() {
               </li>
             ))}
           </ul>
+          {console.log('this is selectedPlace passed to Modal',selectedPlace)}
           <Modal 
             isOpen={isOpen}
             selectedPlace={selectedPlace} 
             favourites={favourites} 
-            handleSubmit={handleSubmit} 
             handleClose={handleClose} />
           {/* <Dialog /> refactored as Modal.js, original code block below */}
         </div>

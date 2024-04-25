@@ -10,6 +10,7 @@ import Contact from "./pages/Contact";
 import Favourites from "./pages/Favourites";
 import Login from "./pages/Login";
 import EditFavourite from "./pages/EditFavourite";
+import Help from "./pages/Help";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="favourites" element={<Favourites />} />
             <Route path="edit-favourite/:id" element={<EditFavourite />} />
+            <Route path="help" element={<Help />} />
           </Route>
         </Routes>
       </BrowserRouter>

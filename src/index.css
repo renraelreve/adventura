@@ -194,7 +194,7 @@ button:hover {
 .top-menu__item {
   margin-bottom: 2rem;
   display: inline; /* add this to turn block item into inline item */
-  padding-left: 20px;
+  padding-left: 10px;
 }
 
 .nav-item {

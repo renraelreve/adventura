@@ -1,42 +1,17 @@
 
-import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
 
 import { AuthContext } from "../store/AuthContext";
-
-import { favouritesApi } from "../api/favouritesApi";
-
+import { FavouritesContext } from "../store/FavouritesContext";
 import FavouriteTable from "../components/FavouriteTable";
-import Loading from "../components/Loading";
+import LocaliseFavourites from "../components/LocaliseFavourites";
 import Error from "../components/Error";
 
 function Favourites() {
   const { isLoggedIn } = useContext(AuthContext);
-  const [favourites, setFavourites] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const favouritesctx = useContext(FavouritesContext);
   const [error, setError] = useState(null);
 
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    loadFavourites();
-  }, []);
-
-  const loadFavourites = async () => {
-    try {
-      setIsLoading(true);
-      const response = await favouritesApi.get("/favourites");
-      setFavourites(response.data);
-      setError(null);
-    } catch (error) {
-      console.log(error);
-      setError(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  if (isLoading) return <Loading />;
   if (error) return <Error message={error} />;
 
   return (
@@ -44,12 +19,8 @@ function Favourites() {
     isLoggedIn && 
     <><div>
       <h1>Favourites</h1>
-      {/* <div style={{ marginBottom: 20 }}>
-        <button onClick={() => navigate("/add-favourite")}>
-          Add a favourite attraction
-        </button>
-      </div> */}
-       <FavouriteTable favourites={favourites} />
+       <LocaliseFavourites />
+       <FavouriteTable favourites={favouritesctx.favourites} />
     </div>
     </>
   );

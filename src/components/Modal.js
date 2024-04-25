@@ -1,9 +1,14 @@
 import { useState, useContext } from 'react';
+import { useNavigate } from "react-router-dom";
+
 import { Dialog } from "@headlessui/react";
 import Rating from '@mui/material/Rating';
 import { AuthContext } from "../store/AuthContext";
+import { FavouritesContext } from "../store/FavouritesContext";
 import { favouritesApi } from "../api/favouritesApi";
-import Success from "../components/Success"
+import Success from "../components/Success";
+import Error from "../components/Error";
+import LocaliseFavourites from './LocaliseFavourites';
 
 const initialFavouriteState = {
     name: "",
@@ -11,13 +16,28 @@ const initialFavouriteState = {
     comment: "",
   };
 
-export default function Modal( { isOpen, selectedPlace, favourites, handleSubmit, handleClose } ) {
+export default function Modal( { isOpen, selectedPlace, handleClose } ) {
     const { isLoggedIn } = useContext(AuthContext);
-    const [newFavourite, setNewFavourite] = useState(initialFavouriteState);
-    const [isLoading, setIsLoading] = useState(false);
+    const favouritesctx = useContext(FavouritesContext);
+    
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(null);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [newFavourite, setNewFavourite] = useState(initialFavouriteState);
+
+    const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const newPlace = {
+      name: selectedPlace.name,
+      comment: e.target.elements.comment.value,
+      rating: e.target.elements.rating.value,
+    };
+    const newList = [...favouritesctx.favourites, newPlace];
+    favouritesctx.setFavourites(newList);
+  };
 
     const handleFavouriteChange = (e) => {
         setNewFavourite((favourite) => {
@@ -30,28 +50,31 @@ export default function Modal( { isOpen, selectedPlace, favourites, handleSubmit
     const handleAddFavourite = async (e) => {
         e.preventDefault();
         try {
-          setIsLoading(true);
           console.log("this is being post", newFavourite);
           await favouritesApi.post(`/favourites`, newFavourite);
           setSuccess(true);
           setError(null);
           setNewFavourite(initialFavouriteState);
-          setIsSubmitted(true);
+        // setIsSubmitted(true);
+          <LocaliseFavourites />
         } catch (error) {
           setSuccess(false);
           console.log(error.response);
           if (error.response.status === 400) setError(error.response.data.message);
           else setError(error.message);
         } finally {
-          setIsLoading(false);
+          setError(null);
         }
       };
 
     return (
     <>
+    {console.log('this is selectedPlace.name inside Dialog', selectedPlace.name)}
+    {console.log('this is favouritesctx.favourites inside Dialog', favouritesctx.favourites)}
     <Dialog open={isOpen} onClose={() => handleClose()}>
         <div>
             <Dialog.Panel className="dialogPanel">
+            <span style={{ float: "right" }} onClick={() => {handleClose(); setIsSubmitted(false); setSuccess(false)}}>❌</span>
             <Dialog.Title>Details</Dialog.Title>
             <Dialog.Description style={{ margin: "2px" }}>
                 {selectedPlace && (
@@ -69,20 +92,20 @@ export default function Modal( { isOpen, selectedPlace, favourites, handleSubmit
                     <div>
                     {/* Place details */}
                     <p>
-                        <strong>Name: {selectedPlace.name}</strong>{" "}
+                            <strong>Name: {selectedPlace.name}</strong>{" "}
                     </p>
                     <br></br>
                     <p>Description: {selectedPlace.description}</p>
                     <br></br>
-                    <p>Ratings: {selectedPlace.rating}</p>
+                    <p>Site Ratings: {selectedPlace.rating}</p>
                     </div>
                 </div>
                 )}
             </Dialog.Description>
             { isLoggedIn && 
+                !(favouritesctx.favourites).some((place) => place.name.includes(selectedPlace.name)) &&                  
                 <div>
-                    {/* {!favourites.some((place) => place.name.includes(selectedPlace.name)) &&  (                 */}
-                        { !isSubmitted  &&
+                        {/* { !isSubmitted  && */}
                         <form onSubmit={handleSubmit}>
                             <p>Comments: 
                             <textarea
@@ -94,8 +117,8 @@ export default function Modal( { isOpen, selectedPlace, favourites, handleSubmit
                                         marginTop: "15px",
                                         marginBottom: "10px",
                                     }}
-                                    onChange={handleFavouriteChange}
-                                    value={newFavourite.comment} />
+                                    value={newFavourite.comment} 
+                                    onChange={handleFavouriteChange} />
                             </p>
 
                             <p>My Rating: 
@@ -109,25 +132,23 @@ export default function Modal( { isOpen, selectedPlace, favourites, handleSubmit
                             <button style={{ margin: "10px" }} onClick={handleAddFavourite}>
                                 Save to Favourites
                             </button>
-                    
                         </form>
-                    }
                 </div> 
+                
             }
+            {console.log('this is selectedPlace.name at conditional Favourites',selectedPlace.name)}
+            { isLoggedIn && (favouritesctx.favourites).some((place) => place.name.includes(selectedPlace.name)) && <p>You are already tracking this Favourite!</p> }
             { success && <Success /> }
-            <button
-                style={{ margin: "10px" }}
-                onClick={() => {handleClose(); setIsSubmitted(false); setSuccess(false)}}
-            >
-                Back
-            </button>
-            <button
-                onClick={() => {
-                console.log(favourites);
+            { error && <Error message={error}/> }
+            
+            { isLoggedIn && <button style={{ marginLeft: "10px" }}
+                onClick={() => {navigate('/favourites');
+                console.log(favouritesctx.favourites);
                 }}
             >
                 Check Favourites
             </button>
+            }
             </Dialog.Panel>
         </div>
         </Dialog>
