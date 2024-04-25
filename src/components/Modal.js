@@ -142,7 +142,7 @@ export default function Modal({
                 )}
               </div>
             )}
-            {/* {success && <Success />} */}
+            {success && <Success />}
             <button
               style={{ margin: "10px" }}
               onClick={() => {
