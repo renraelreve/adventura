@@ -4,7 +4,6 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../store/AuthContext";
 import { FavouritesContext } from "../store/FavouritesContext";
 import FavouriteTable from "../components/FavouriteTable";
-import LocaliseFavourites from "../components/LocaliseFavourites";
 import Error from "../components/Error";
 
 function Favourites() {
@@ -19,7 +18,6 @@ function Favourites() {
     isLoggedIn && 
     <><div>
       <h1>Favourites</h1>
-       <LocaliseFavourites />
        <FavouriteTable favourites={favouritesctx.favourites} />
     </div>
     </>

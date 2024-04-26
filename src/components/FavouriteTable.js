@@ -5,6 +5,7 @@ import DisplayRating from "./DisplayRating";
 
 function FavouriteTable({ favourites }) {
   const favouritesctx = useContext(FavouritesContext);
+  favouritesctx.handleloadFavourites();
   console.log('this is favouritesctx.favourites within FavouriteTable', favouritesctx.favourites);
   return (
     <table className="favourite-table">

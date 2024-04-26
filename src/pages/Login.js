@@ -1,11 +1,11 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../store/AuthContext";
+import { FavouritesContext } from "../store/FavouritesContext";
 import Success from "../components/Success";
-import LocaliseFavourites from "../components/LocaliseFavourites";
-// import { Link } from "react-router-dom";
 
 function Login() {
   const { loginHandler, isLoggedIn } = useContext(AuthContext);
+  const favouritesctx = useContext(FavouritesContext);
 
   // manage form data
   const [loginForm, setLoginForm] = useState({ username: "", password: "" });
@@ -24,6 +24,7 @@ function Login() {
     // user will always login
     // call the API to login, return some auth token
     loginHandler();
+    favouritesctx.handleloadFavourites();
   };
 
   return (
@@ -56,7 +57,6 @@ function Login() {
           Track your Favourites<br/><br />
           Add your own rating<br/><br />
           Manage own comments</span>} />
-          <LocaliseFavourites />
           {/* <Link to="/">Back to Home</Link> */}
         </>
       )}

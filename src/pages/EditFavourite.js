@@ -36,6 +36,7 @@ export default function EditFavourite() {
     try {
       const response = await favouritesApi.get(`/favourites/${id}`);
       setFavourite(response.data);
+      console.log('this is favourite within EditFavourite', favourite);
       setError(null);
     } catch (error) {
       setError(error.response.data.message);
