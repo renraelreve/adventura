@@ -14,6 +14,7 @@ export default function SearchInput({ onSetCategory, onSetKeyword }) {
         name="category"
         style={{
           fontSize: "18px",
+          height: "30px",
         }}
         // value={category}
         // onChange={(e) => {
@@ -41,12 +42,13 @@ export default function SearchInput({ onSetCategory, onSetKeyword }) {
       </select>
 
       <div>
-        <span>Search: </span>
+        <span>Search keyword: </span>
         <input
           name="keyword"
+          placeholder="Enter name of food, place,  activity"
           style={{
-            width: "150px",
-            height: "35px",
+            width: "300px",
+            height: "30px",
             border: "1px solid black",
             marginTop: "15px",
             marginBottom: "10px",
@@ -62,4 +64,3 @@ export default function SearchInput({ onSetCategory, onSetKeyword }) {
     </form>
   );
 }
-
