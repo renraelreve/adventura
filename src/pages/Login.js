@@ -31,7 +31,7 @@ function Login() {
     <div>
       <h1>Login</h1>
       {!isLoggedIn && (
-        <div style={{ display: "block", gap: 2 }}>
+        <div style={{ display: "block", gap: 2}}>
           <input style={{margin: 7}}
             type="text"
             name="username"
