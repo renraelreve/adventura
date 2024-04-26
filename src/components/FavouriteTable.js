@@ -1,7 +1,12 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { FavouritesContext } from "../store/FavouritesContext";
 import DisplayRating from "./DisplayRating";
 
 function FavouriteTable({ favourites }) {
+  const favouritesctx = useContext(FavouritesContext);
+  favouritesctx.handleloadFavourites();
+  console.log('this is favouritesctx.favourites within FavouriteTable', favouritesctx.favourites);
   return (
     <table className="favourite-table">
       <thead>
@@ -9,18 +14,15 @@ function FavouriteTable({ favourites }) {
           <th>Name</th>
           <th>Rating</th>
           <th>Comment</th>
-          <th></th>
+          <th>Edit / Delete</th>
         </tr>
       </thead>
       <tbody>
-        {favourites.map((favourite) => (
+        {(favouritesctx.favourites).map((favourite) => (
           <tr key={favourite.id}>
             <td>
-              <NavLink to={`/favourites/${favourite.id}`}>
                 {favourite.name}
-              </NavLink>
             </td>
-            {/* <td>{favourite.rating}</td> */}
             <td><DisplayRating value={favourite.rating}/></td>
             <td>{favourite.comment}</td>
             <td>

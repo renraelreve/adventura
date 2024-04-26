@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
-import { useParams, NavLink, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../store/AuthContext";
+import { FavouritesContext } from "../store/FavouritesContext";
 import Rating from '@mui/material/Rating';
 import { favouritesApi } from "../api/favouritesApi";
 import Success from "../components/Success";
@@ -14,6 +15,7 @@ const initialAdditionState = {
 
 export default function EditFavourite() {
   const { isLoggedIn } = useContext(AuthContext);
+  const favouritesctx = useContext(FavouritesContext);
 
   const { id } = useParams();
   const [favourite, setFavourite] = useState({});
@@ -34,6 +36,7 @@ export default function EditFavourite() {
     try {
       const response = await favouritesApi.get(`/favourites/${id}`);
       setFavourite(response.data);
+      console.log('this is favourite within EditFavourite', favourite);
       setError(null);
     } catch (error) {
       setError(error.response.data.message);
@@ -54,8 +57,8 @@ export default function EditFavourite() {
         ...addition,
         [e.target.name]: e.target.value,
       };
-      console.log("this is being patched", newAddition);
-      await favouritesApi.patch(`/favourites/${id}`, newAddition);
+      console.log("this is being PUT", newAddition);
+      await favouritesApi.put(`/favourites/${id}`, newAddition);
       setSuccess(true);
       setAddition(initialAdditionState);
       setError(null);
@@ -75,7 +78,7 @@ export default function EditFavourite() {
     isLoggedIn &&
     <>
       <div style={{ width: 600 }}>
-        <h1>Edit Favourite</h1>
+        <h1>Manage Favourite</h1>
         <p style={{ marginBottom: 20 }}>
         <label htmlFor="attractionname">Attraction:</label>{" "}
           {/* <NavLink to={`/favourites/${favourite.id}`}> */}
@@ -87,7 +90,7 @@ export default function EditFavourite() {
         { error && <Error message={error} />}
 
         {!isSubmitted && 
-        <div style={{ marginBottom: 20 }}>
+        <div>
           <p style={{ marginBottom: 20 }}>
           <label htmlFor="presentrating">Present rating</label>
           <DisplayRating value={favourite.rating} />
@@ -126,6 +129,13 @@ export default function EditFavourite() {
             </form>
           </div>
         }
+          <p><button onClick={() => 
+            {
+              favouritesctx.handleDeleteFavourite(id);
+              navigate('/favourites');}
+              } >
+            Delete Favourite
+          </button></p>
 
           <button onClick={() => navigate('/favourites')} >
             Return to Favourites
