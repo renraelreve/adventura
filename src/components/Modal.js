@@ -52,6 +52,7 @@ export default function Modal( { isOpen, selectedPlace, handleClose } ) {
           await favouritesApi.post(`/favourites`, newFavourite);
           setSuccess(true);
           setError(null);
+          setNewFavourite(initialFavouriteState);
           favouritesctx.handleloadFavourites();
         } catch (error) {
           setSuccess(false);
@@ -60,7 +61,6 @@ export default function Modal( { isOpen, selectedPlace, handleClose } ) {
           else setError(error.message);
         } finally {
           setError(null);
-          
         }
     };
 
