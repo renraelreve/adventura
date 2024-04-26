@@ -17,7 +17,7 @@ function Home() {
   const [selectedPlace, setSelectedPlace] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   // const [isLoading, setIsLoading] = useState(false); add in react-spinner like async-dog
-  const [favourites, setFavourites] = useState([]);
+  // const [favourites, setFavourites] = useState([]);
   
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -42,13 +42,9 @@ function Home() {
     }
   };
 
-  useEffect(() => {
-    apiGetAll();
-  }, [keyword, category]);
-
-// useEffect(() => {
-//   apiGetAll();
-// }, [apiGetAll]);
+  // useEffect(() => {
+  //   apiGetAll();
+  // }, [keyword, category]);
 
 // useEffect(() => {
 //   if (isMounted) {
@@ -96,18 +92,24 @@ function Home() {
 
       setPlaces(newData);
     } catch (error) {
+      setError(error);
       console.error("Error fetching data:", error);
     } 
     
     finally {
+      setError(null);
       setIsLoading(false);
       console.log('this is places within apiGetAll()', places);  
     }
   }, [keyword, category]);
 
+  useEffect(() => {
+    apiGetAll();
+  }, [apiGetAll]);
 
-  if (isLoading) return <Loading />;
-  if (error) return <Error message={error} />;
+
+  // if (isLoading) return <Loading />;
+  // if (error) return <Error message={error} />;
 
   const handlerSetCategory = (category) => setCategory(category);
   const handlerSetKeyword = (keyword) => setKeyword(keyword);
@@ -138,8 +140,10 @@ function Home() {
         onSetCategory={handlerSetCategory}
         onSetKeyword={handlerSetKeyword}
       />
-
-      {places && (
+      
+      {isLoading && <Loading />}
+      {!isLoading && (
+      // {places && (
         <div>
           <ul className="list">
             {places.slice(0, 12).map((item, index) => (
@@ -183,8 +187,8 @@ function Home() {
           <Modal 
             isOpen={isOpen}
             selectedPlace={selectedPlace} 
-            favourites={favourites} 
-//             handleSubmit={handleSubmit}
+//          favourites={favourites} 
+//          handleSubmit={handleSubmit}
             handleClose={handleClose} />
 
           {/* <Dialog /> refactored as Modal.js, original code block below */}
