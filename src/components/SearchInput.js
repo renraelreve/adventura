@@ -12,6 +12,9 @@ export default function SearchInput({ onSetCategory, onSetKeyword }) {
       <span>Select Category: </span>
       <select
         name="category"
+        style={{
+          fontSize: "18px",
+        }}
         // value={category}
         // onChange={(e) => {
         //   onSetCategory(e.target.value);
@@ -38,15 +41,16 @@ export default function SearchInput({ onSetCategory, onSetKeyword }) {
       </select>
 
       <div>
-        <span>Enter Keyword: </span>
+        <span>Search: </span>
         <input
           name="keyword"
           style={{
-            width: "100px",
-            height: "20px",
+            width: "150px",
+            height: "35px",
             border: "1px solid black",
             marginTop: "15px",
             marginBottom: "10px",
+            fontSize: "18px",
           }}
           // value={keyword}
           // onChange={(e) => {

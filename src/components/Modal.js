@@ -100,9 +100,19 @@ export default function Modal( { isOpen, selectedPlace, handleClose } ) {
                       <strong>Name: {selectedPlace.name}</strong>{" "}
                     </p>
                     <br></br>
-                    <p>Description: {selectedPlace.description}</p>
+                    <p
+                      style={{
+                        wordSpacing: "4px",
+                      }}
+                    >
+                    Description: {selectedPlace.description}</p>
                     <br></br>
-                    <p>Site Ratings: {selectedPlace.rating}</p>
+                    <p
+                      style={{
+                        paddingTop: "5px",
+                      }}
+                    >
+                    Site Ratings: {selectedPlace.rating}</p>
                   </div>
                 </div>
               )}
