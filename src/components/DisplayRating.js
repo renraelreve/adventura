@@ -4,8 +4,6 @@ import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
 
 export default function DisplayRating({ value }) {
-  // const [value, setValue] = useState(2);
-
   return (
     <Box
       sx={{

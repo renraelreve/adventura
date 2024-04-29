@@ -3,8 +3,6 @@ import { createContext, useState } from 'react';
 import { favouritesApi } from "../api/favouritesApi";
 
 export function FavouritesContextProvider({ children }) {
-  // const { id } = useParams();
-  
   const [favourites, setFavourites] = useState({});
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
@@ -14,7 +12,6 @@ export function FavouritesContextProvider({ children }) {
   const handleloadFavourites = async () => {
     try {
       const response = await favouritesApi.get(`/favourites/`);
-      // setIsLoading(true);
       setFavourites(response.data);
       setError(null);
       setSuccess(true);
@@ -24,7 +21,6 @@ export function FavouritesContextProvider({ children }) {
           if (error.response.status === 400) setError(error.response.data.message);
           else setError(error.message);
         } finally {
-          // setIsLoading(false);
         }
   };
   
@@ -51,8 +47,6 @@ export function FavouritesContextProvider({ children }) {
     favourites,
     success,
     error,
-    // isLoading,
-    // isSubmitted,
     handleloadFavourites,
     handleDeleteFavourite,
   }
@@ -65,15 +59,6 @@ export function FavouritesContextProvider({ children }) {
 }
 
 export const FavouritesContext = createContext({
-  // name: "",
-  // rating: 3,
-  // comment: "",
-  // favourites,
-  // addition,
-  // success,
-  // error,
-  // isLoading,
-  // isSubmitted,
   handleloadFavourites: () => {},
   handleDeleteFavourite: () => {}
 }

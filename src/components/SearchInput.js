@@ -16,10 +16,6 @@ export default function SearchInput({ onSetCategory, onSetKeyword }) {
           fontSize: "18px",
           height: "30px",
         }}
-        // value={category}
-        // onChange={(e) => {
-        //   onSetCategory(e.target.value);
-        // }}
       >
         {[
           "accommodation",
@@ -54,10 +50,6 @@ export default function SearchInput({ onSetCategory, onSetKeyword }) {
             marginBottom: "10px",
             fontSize: "18px",
           }}
-          // value={keyword}
-          // onChange={(e) => {
-          //   onSetKeyword(e.target.value);
-          // }
         />
       </div>
       <button>Submit</button>

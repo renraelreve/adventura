@@ -57,7 +57,6 @@ function Login() {
           Track your Favourites<br/><br />
           Add your own rating<br/><br />
           Manage own comments</span>} />
-          {/* <Link to="/">Back to Home</Link> */}
         </>
       )}
     </div>

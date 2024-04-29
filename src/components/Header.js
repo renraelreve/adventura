@@ -9,12 +9,6 @@ function Header() {
         height={40}
         style={{ marginLeft: 20 }}
       />
-{/* 
-      <input
-        type="text"
-        className="search-input"
-        placeholder="Search Attractions ..."
-      /> */}
     </header>
   );
 }
