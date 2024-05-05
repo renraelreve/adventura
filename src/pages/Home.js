@@ -42,7 +42,6 @@ function Home() {
   // Getting all places from category
   const apiGetAll = useCallback(async () => {
     try {
-
       setIsLoading(true);
 
       const response = await dataSetAPI.get("/search", {
@@ -72,20 +71,17 @@ function Home() {
               description,
               imageUrl, // Replace 'firstImageUuid' with 'imageUrl'
             };
-          }
-        )
+          })
       );
 
       setPlaces(newData);
     } catch (error) {
       setError(error);
       console.error("Error fetching data:", error);
-    } 
-    
-    finally {
+    } finally {
       setError(null);
       setIsLoading(false);
-      console.log('this is places within apiGetAll()', places);  
+      console.log("this is places within apiGetAll()", places);
     }
   }, [keyword, category]);
 
@@ -96,7 +92,7 @@ function Home() {
   const handlerSetCategory = (category) => setCategory(category);
   const handlerSetKeyword = (keyword) => setKeyword(keyword);
 
-  console.log('this is places within Home.js', places);
+  console.log("this is places within Home.js", places);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -110,7 +106,7 @@ function Home() {
         onSetCategory={handlerSetCategory}
         onSetKeyword={handlerSetKeyword}
       />
-      
+
       {isLoading && <Loading />}
       {!isLoading && (
         <div>
@@ -152,17 +148,20 @@ function Home() {
             ))}
           </ul>
 
-          {console.log('this is selectedPlace passed to Modal',selectedPlace)}
-          <Modal 
+          {console.log("this is selectedPlace passed to Modal", selectedPlace)}
+          <Modal
             isOpen={isOpen}
-            selectedPlace={selectedPlace} 
-            handleClose={handleClose} />
+            selectedPlace={selectedPlace}
+            handleClose={handleClose}
+          />
 
           {/* <Dialog /> refactored as Modal.js */}
         </div>
       )}
 
       {/* <button onClick={apiGetSelect}>Search Keywords</button> */}
+
+      {/* <Map /> */}
     </div>
   );
 }
