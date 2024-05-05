@@ -9,6 +9,7 @@ import Modal from "../components/Modal";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
 import adventura from "../assets/adventura-logo.jpeg";
+import Map from "../components/Map";
 
 function Home() {
   const [places, setPlaces] = useState([]);
@@ -53,7 +54,7 @@ function Home() {
       const newData = await Promise.all(
         response.data.data
           .slice(0, 12)
-          .map(async ({ name, rating, description, images }) => {
+          .map(async ({ name, rating, description, location, images }) => {
             // Check if 'images' is an array and not empty
             const firstImageUuid =
               Array.isArray(images) && images.length > 0
@@ -69,6 +70,7 @@ function Home() {
               name,
               rating,
               description,
+              location,
               imageUrl, // Replace 'firstImageUuid' with 'imageUrl'
             };
           })
@@ -107,61 +109,72 @@ function Home() {
         onSetKeyword={handlerSetKeyword}
       />
 
-      {isLoading && <Loading />}
-      {!isLoading && (
-        <div>
-          <ul className="list">
-            {places.slice(0, 12).map((item, index) => (
-              <li
-                onClick={() => {
-                  setIsOpen(true);
-                  setSelectedPlace(item);
-                }}
-                className="items"
-                key={index}
-                style={{
-                  border: "2px solid #FFEBB2",
-                  margin: "10px",
-                  padding: "10px",
-                  backgroundColor: "#F7EEDD",
-                  width: "500px",
-                  borderRadius: "10px",
-                }}
-              >
-                <div>{item.name}</div>
-                {/* <div>Description: {item.description}</div>
+      <div className="placeAndMapContainer">
+        <div className="placeContainer">
+          {isLoading && <Loading />}
+          {!isLoading && (
+            <>
+              <ul className="list">
+                {places.slice(0, 12).map((item, index) => (
+                  <li
+                    onClick={() => {
+                      setIsOpen(true);
+                      setSelectedPlace(item);
+                    }}
+                    className="items"
+                    key={index}
+                    style={{
+                      border: "2px solid #FFEBB2",
+                      margin: "10px",
+                      padding: "10px",
+                      backgroundColor: "#F7EEDD",
+                      width: "500px",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <div>{item.name}</div>
+                    {/* <div>Description: {item.description}</div>
               <div>Ratings: {item.rating}</div> */}
-                <div>
-                  {item.imageUrl && (
-                    <img
-                      className="images"
-                      src={item.imageUrl}
-                      alt="Downloaded"
-                    />
-                  )}
+                    <div>
+                      {item.imageUrl && (
+                        <img
+                          className="images"
+                          src={item.imageUrl}
+                          alt="Downloaded"
+                        />
+                      )}
 
-                  {!item.imageUrl && (
-                    <img className="images" src={adventura} alt="Adventura" />
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
+                      {!item.imageUrl && (
+                        <img
+                          className="images"
+                          src={adventura}
+                          alt="Adventura"
+                        />
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
 
-          {console.log("this is selectedPlace passed to Modal", selectedPlace)}
-          <Modal
-            isOpen={isOpen}
-            selectedPlace={selectedPlace}
-            handleClose={handleClose}
-          />
+              {console.log(
+                "this is selectedPlace passed to Modal",
+                selectedPlace
+              )}
+              <Modal
+                isOpen={isOpen}
+                selectedPlace={selectedPlace}
+                handleClose={handleClose}
+              />
 
-          {/* <Dialog /> refactored as Modal.js */}
+              {/* <Dialog /> refactored as Modal.js */}
+            </>
+          )}
         </div>
-      )}
 
-      {/* <button onClick={apiGetSelect}>Search Keywords</button> */}
-
-      {/* <Map /> */}
+        <div className="mapContainer">
+          {!isLoading && <Map places={places} />}
+        </div>
+      </div>
     </div>
   );
 }

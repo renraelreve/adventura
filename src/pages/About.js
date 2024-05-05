@@ -60,8 +60,6 @@ function About() {
           the environment.
         </p>
       </div>
-
-      <Map />
     </div>
   );
 }

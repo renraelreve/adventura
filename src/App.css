@@ -30,6 +30,7 @@
 
 .leaflet-container {
   height: 100vh;
+  margin-top: 10px;
 }
 
 .cluster-icon {

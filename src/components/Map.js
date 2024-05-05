@@ -4,21 +4,17 @@ import { Icon, divIcon, point } from "leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 // import "./Map.css";
 
-function Map() {
-  const markers = [
-    {
-      geocode: [48.86, 2.3522],
-      popup: "Hello, I am popup 1",
-    },
-    {
-      geocode: [48.85, 2.3522],
-      popup: "Hello, I am popup 2",
-    },
-    {
-      geocode: [48.855, 2.34],
-      popup: "Hello, I am popup 3",
-    },
-  ];
+function Map({ places }) {
+  const markers = places
+    .filter(
+      (obj) => obj.location && obj.location.latitude && obj.location.longitude
+    )
+    .map((obj) => {
+      return {
+        popup: obj.name,
+        geocode: [obj.location.latitude, obj.location.longitude],
+      };
+    });
 
   const customIcon = new Icon({
     iconUrl: require("../assets/google-maps.png"),
@@ -36,8 +32,8 @@ function Map() {
   return (
     <div className="map-container">
       <MapContainer
-        center={[48.8566, 2.3522]}
-        zoom={13}
+        center={[1.39027, 103.751959]}
+        zoom={11.5}
         scrollWheelZoom={false}
       >
         <TileLayer
