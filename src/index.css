@@ -180,7 +180,7 @@ button:hover {
   margin-top: 2rem;
 
   /* margin-left: 1rem; */
-  text-transform: uppercase; 
+  text-transform: uppercase;
 }
 
 .top-menu {
@@ -285,12 +285,12 @@ td {
   margin-bottom: 2rem;
 }
 
-.grid-container {
+/* .grid-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
   align-items: center;
-}
+} */
 
 .search-input {
   margin-right: 2rem;
@@ -338,13 +338,26 @@ td {
   align-items: center;
 }
 
+.placeAndMapContainer {
+  display: flex; /* Set display to flex */
+  width: 100%; /* Ensure container spans full width of the screen */
+}
+
+.placeContainer {
+  flex: 70%; /* Set the first div to occupy 70% of available space */
+}
+
+.mapContainer {
+  flex: 30%; /* Set the second div to occupy 30% of available space */
+}
+
 .list {
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   overflow: hidden;
-  margin-top: 20px;
+  margin-top: 0px;
 }
 
 .items {
@@ -352,6 +365,8 @@ td {
   width: 300px;
   height: 320px;
   overflow: hidden;
+  padding-top: 0;
+  margin-top: 0;
 }
 
 .images {
