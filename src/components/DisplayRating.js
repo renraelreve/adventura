@@ -3,27 +3,33 @@ import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
 
-export default function DisplayRating({ value }) {
+export default function DisplayRating({ value, onChange }) {
   return (
-    <Box
-      sx={{
-        "& > legend": { mt: 2 },
-      }}
-    >
-      {/* <Typography component="legend">Controlled</Typography>
-      <Rating
-        name="simple-controlled"
-        value={value}
-        onChange={(event, value) => 
-          onChangeHandler
-        }
-      />
-      <Typography component="legend">Read only</Typography> */}
-      <Rating name="read-only" value={value ?? null} readOnly />
-      {/* <Typography component="legend">Disabled</Typography>
-      <Rating name="disabled" value={value} disabled />
-      <Typography component="legend">No rating given</Typography>
-      <Rating name="no-value" value={null} /> */}
-    </Box>
+    <div>
+      <Box component="fieldset" mb={3} borderColor="transparent">
+        <Typography component="legend" style={{ fontSize: 20 }}>
+          My Ratings!
+        </Typography>
+        {/* Use the value and onChange handlers passed as props */}
+        <Rating
+          name="simple-controlled"
+          value={value}
+          onChange={(event, newValue) => {
+            // Call the onChange function passed as props
+            onChange(newValue);
+          }}
+          sx={{
+            "& .MuiRating-iconFilled": {
+              color: "orange", // Change the color of filled stars
+              fontSize: 25,
+            },
+            "& .MuiRating-iconEmpty": {
+              color: "grey", // Change the color of empty stars
+              fontSize: 25,
+            },
+          }}
+        />
+      </Box>
+    </div>
   );
 }
