@@ -9,3 +9,5 @@ Welcome to Adventura
 4. As a user, I can save the details of the selected attraction into my “favourites”
 
 5. As a user, I can write reviews and give star ratings to each location
+
+6. As a user, I can see the markers of the places on the Singapore map.
