@@ -66,18 +66,13 @@ export default function EditFavourite() {
     }));
   };
 
-  const handlerAddAddition = async (e) => {
+  const handlerUpdateFav = async (e) => {
     e.preventDefault();
     try {
       setIsLoading(true);
-      // const newAddition = {
-      //   ...addition,
-      //   [e.target.name]: e.target.value,
-      // };
       console.log("this is being PUT", favourite);
       await favouritesApi.put(`/favourites/${id}`, favourite);
       setSuccess(true);
-      // setAddition(initialAdditionState);
       setError(null);
       setIsSubmitted(true);
     } catch (error) {
@@ -87,6 +82,7 @@ export default function EditFavourite() {
       else setError(error.message);
     } finally {
       setIsLoading(false);
+      navigate("/favourites");
     }
   };
 
@@ -128,7 +124,7 @@ export default function EditFavourite() {
                       }
                     /> */}
 
-                  <form className="comment-form" onSubmit={handlerAddAddition}>
+                  <form className="comment-form" onSubmit={handlerUpdateFav}>
                     <p style={{ marginBottom: 20 }}>
                       <label>My comments:</label>
                       <textarea
