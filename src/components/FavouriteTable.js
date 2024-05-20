@@ -1,11 +1,15 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { FavouritesContext } from "../store/FavouritesContext";
 import ShowRating from "./ShowRating";
 
 function FavouriteTable({ favourites }) {
   const favouritesctx = useContext(FavouritesContext);
-  favouritesctx.handleloadFavourites();
+
+  useEffect(() => {
+    favouritesctx.handleloadFavourites();
+  }, []);
+
   console.log(
     "this is favouritesctx.favourites within FavouriteTable",
     favouritesctx.favourites
