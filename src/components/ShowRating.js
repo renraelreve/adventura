@@ -7,7 +7,14 @@ export default function ShowRating({ value }) {
   return (
     <Box
       sx={{
-        "& > legend": { mt: 2 },
+        "& .MuiRating-iconFilled": {
+          color: "orange", // Change the color of filled stars
+          fontSize: 25,
+        },
+        "& .MuiRating-iconEmpty": {
+          color: "grey", // Change the color of empty stars
+          fontSize: 25,
+        },
       }}
     >
       {/* <Typography component="legend">Controlled</Typography>

@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { FavouritesContext } from "../store/FavouritesContext";
 import ShowRating from "./ShowRating";
+import DisplayRating from "./DisplayRating";
 
 function FavouriteTable({ favourites }) {
   const favouritesctx = useContext(FavouritesContext);

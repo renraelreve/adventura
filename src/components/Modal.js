@@ -172,14 +172,16 @@ export default function Modal({ isOpen, selectedPlace, handleClose }) {
                       value={newFavourite.rating}
                       onChange={handleFavouriteChange}
                     /> */}
-
-                    <DisplayRating
-                      name="rating"
-                      value={newFavourite.rating}
-                      onChange={(newValue) =>
-                        handleFavouriteChange("rating", newValue)
-                      }
-                    />
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <h3>My Rating</h3>
+                      <DisplayRating
+                        name="rating"
+                        value={newFavourite.rating}
+                        onChange={(newValue) =>
+                          handleFavouriteChange("rating", newValue)
+                        }
+                      />
+                    </div>
 
                     <button
                       style={{ margin: "10px" }}

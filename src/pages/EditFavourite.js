@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../store/AuthContext";
 import { FavouritesContext } from "../store/FavouritesContext";
 import Rating from "@mui/material/Rating";
+
 import { favouritesApi } from "../api/favouritesApi";
 import Success from "../components/Success";
 import Error from "../components/Error";
@@ -58,28 +59,35 @@ export default function EditFavourite() {
     }));
   };
 
+  const updateRating = (newRating) => {
+    setFavourite((prevFavourite) => ({
+      ...prevFavourite,
+      rating: newRating,
+    }));
+  };
+
   const handlerAddAddition = async (e) => {
     e.preventDefault();
-    // try {
-    //   setIsLoading(true);
-    //   const newAddition = {
-    //     ...addition,
-    //     [e.target.name]: e.target.value,
-    //   };
-    //   console.log("this is being PUT", newAddition);
-    //   await favouritesApi.put(`/favourites/${id}`, newAddition);
-    //   setSuccess(true);
-    //   setAddition(initialAdditionState);
-    //   setError(null);
-    //   setIsSubmitted(true);
-    // } catch (error) {
-    //   setSuccess(false);
-    //   console.log(error.response);
-    //   if (error.response.status === 400) setError(error.response.data.message);
-    //   else setError(error.message);
-    // } finally {
-    //   setIsLoading(false);
-    // }
+    try {
+      setIsLoading(true);
+      // const newAddition = {
+      //   ...addition,
+      //   [e.target.name]: e.target.value,
+      // };
+      console.log("this is being PUT", favourite);
+      await favouritesApi.put(`/favourites/${id}`, favourite);
+      setSuccess(true);
+      // setAddition(initialAdditionState);
+      setError(null);
+      setIsSubmitted(true);
+    } catch (error) {
+      setSuccess(false);
+      console.log(error.response);
+      if (error.response.status === 400) setError(error.response.data.message);
+      else setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -105,12 +113,20 @@ export default function EditFavourite() {
                 <div>
                   <p style={{ marginBottom: 20 }}>
                     <label>My rating</label>
-                    <Rating
-                      name="rating"
-                      onChange={updateFavourite}
+                    <DisplayRating
+                      // name="rating"
+                      onChange={updateRating}
                       value={favourite.rating}
                     />
                   </p>
+
+                  {/* <DisplayRating
+                      name="rating"
+                      value={newFavourite.rating}
+                      onChange={(newValue) =>
+                        handleFavouriteChange("rating", newValue)
+                      }
+                    /> */}
 
                   <form className="comment-form" onSubmit={handlerAddAddition}>
                     <p style={{ marginBottom: 20 }}>
@@ -125,27 +141,41 @@ export default function EditFavourite() {
                       />
                     </p>
 
-                    <button disabled={isLoading}>
-                      {isLoading ? "Loading ..." : "Submit Edit"}
-                    </button>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <button
+                        type="submit"
+                        disabled={isLoading}
+                        style={{ marginRight: "10px" }}
+                      >
+                        {isLoading ? "Loading ..." : "Submit Edit"}
+                      </button>
+                      <button
+                        type="button"
+                        style={{ marginRight: "10px" }}
+                        onClick={() => {
+                          favouritesctx.handleDeleteFavourite(id);
+                          navigate("/favourites");
+                        }}
+                      >
+                        Delete Favourite
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => navigate("/favourites")}
+                      >
+                        Return to Favourites
+                      </button>
+                    </div>
                   </form>
                 </div>
               )}
-
-              <p>
-                <button
-                  onClick={() => {
-                    favouritesctx.handleDeleteFavourite(id);
-                    navigate("/favourites");
-                  }}
-                >
-                  Delete Favourite
-                </button>
-              </p>
-
-              <button onClick={() => navigate("/favourites")}>
-                Return to Favourites
-              </button>
             </>
           ) : (
             <p>Favourite not found.</p>

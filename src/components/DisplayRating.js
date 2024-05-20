@@ -6,10 +6,8 @@ import Typography from "@mui/material/Typography";
 export default function DisplayRating({ value, onChange }) {
   return (
     <div>
-      <Box component="fieldset" mb={3} borderColor="transparent">
-        <Typography component="legend" style={{ fontSize: 20 }}>
-          My Ratings!
-        </Typography>
+      <Box component="fieldset" mb={0} borderColor="transparent">
+        <Typography component="legend" style={{ fontSize: 20 }}></Typography>
         {/* Use the value and onChange handlers passed as props */}
         <Rating
           name="simple-controlled"
