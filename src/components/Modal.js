@@ -2,6 +2,8 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Dialog } from "@headlessui/react";
 import Rating from "@mui/material/Rating";
+import Box from "@mui/material/Box";
+import DisplayRating from "./DisplayRating";
 import { AuthContext } from "../store/AuthContext";
 import { FavouritesContext } from "../store/FavouritesContext";
 import { favouritesApi } from "../api/favouritesApi";
@@ -11,7 +13,7 @@ import adventura from "../assets/adventura-logo.jpeg";
 
 const initialFavouriteState = {
   name: "",
-  rating: "",
+  rating: null,
   comment: "",
 };
 
@@ -37,14 +39,12 @@ export default function Modal({ isOpen, selectedPlace, handleClose }) {
     favouritesctx.setFavourites(newList);
   };
 
-  const handleFavouriteChange = (e) => {
-    setNewFavourite((favourite) => {
-      return {
-        ...favourite,
-        name: selectedPlace.name,
-        [e.target.name]: e.target.value,
-      };
-    });
+  const handleFavouriteChange = (name, value) => {
+    setNewFavourite((favourite) => ({
+      ...favourite,
+      name: selectedPlace.name,
+      [name]: value,
+    }));
   };
 
   const handleAddFavourite = async (e) => {
@@ -159,18 +159,27 @@ export default function Modal({ isOpen, selectedPlace, handleClose }) {
                           marginBottom: "10px",
                         }}
                         value={newFavourite.comment}
-                        onChange={handleFavouriteChange}
+                        onChange={(e) =>
+                          handleFavouriteChange("comment", e.target.value)
+                        }
                       />
                     </p>
 
-                    <p>
-                      My Rating:
-                      <Rating
-                        name="rating"
-                        value={newFavourite.rating}
-                        onChange={handleFavouriteChange}
-                      />
-                    </p>
+                    {/* <p>My Rating:</p> */}
+
+                    {/* <Rating
+                      name="rating"
+                      value={newFavourite.rating}
+                      onChange={handleFavouriteChange}
+                    /> */}
+
+                    <DisplayRating
+                      name="rating"
+                      value={newFavourite.rating}
+                      onChange={(newValue) =>
+                        handleFavouriteChange("rating", newValue)
+                      }
+                    />
 
                     <button
                       style={{ margin: "10px" }}
